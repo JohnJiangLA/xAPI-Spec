@@ -1,49 +1,34 @@
-# xAPI-Spec
+# xAPI 文档
 
-This Github repository contains the xAPI Specification. xAPI is a learning
-technologies interoperability specification that describes communication
-about learner activity and experiences between technologies. The specification is
-divided into three documents:
+这个 GitHub 仓库包含了xAPI 详述内容。xAPI 是一个学习互用规范，通过学习者在学习过程中交互信息，描述学习过程中的活动与经历，这份详述分为了以下三个文件：
 
-*   Part One:   [About the Experience API](./xAPI-About.md#partone)
-*   Part Two:   [Experience API Data](./xAPI-Data.md#parttwo)
-*   Part Three: [Data Processing, Validation, and Security](./xAPI-Communication.md#partthree)
+*   第一部分： [Experience API 简介](./xAPI-About.md#第一部分)
+*   第二部分： [Experience API 数据](./xAPI-Data.md#第二部分)
+*   第三部分： [数据处理、验证和安全](/xAPI-Communication.md#partthree)
 
-## Specification versions
+## 文档版本
 
-The current version of the specification is
-[1.0.3](https://github.com/adlnet/xAPI-Spec/).
+当前英文文档版本为[1.0.3](https://github.com/adlnet/xAPI-Spec/)。
 
-The next version of the specification has not been planned. 
+下一版本尚无计划。
 
-## What to do if the spec is unclear
+## 怎么提出疑问
 
-If when implementing the specification you find something is unclear or
-unhelpful, you can help to improve the specification by
-[raising an issue here](https://github.com/adlnet/xAPI-Spec/issues). When
-raising an issue, please give as much detail as you can in regards to:
+如果在实践这个规格的过程中你发现有些东西不清楚或者没有用，你可以通过[提交 issue here](https://github.com/adlnet/xAPI-Spec/issues) 来帮助改善这个文档。请在提交 issue 时尽可能丰富以下细节：
 
-* Which part/parts of the specification you are reading.
-* Your understanding of what these parts mean.
-* The product and feature you are implementing xAPI in; what's the use case you
-  are trying to achieve?
-* How you would like the specification to be improved. Suggest some specific new
-  wording if you like!
+* 具体是文档中的哪些章节？
+* 这些部分你所理解的含义。
+* 你想用 xAPI 实现的产品和功能，你尝试实现什么样的使用案例？
+* 你想如何提升这份文档，你可以提议一些详细的新词法！
 
-You'll need to [sign up for a GitHub account](https://github.com/signup/free) if
-you do not already have one in order to raise and comment on issues.
+如果你没有 GitHub 账号，为了提交 issue 你需要[申请 GitHub 账号](https://github.com/signup/free)。
 
-You can discuss any issues before or after raising them on the
-[specification Google Group](https://groups.google.com/a/adlnet.gov/forum/#!forum/xapi-spec)
-and at our
-[weekly specification calls](https://attendee.gotowebinar.com/register/5526804432322315009).
+你可以在提交 issue 之前或之后在 [specification Google Group](https://groups.google.com/a/adlnet.gov/forum/#!forum/xapi-spec) 或 [weekly specification calls](https://global.gotomeeting.com/join/686232837 ) 中参与讨论。
 
-## How you can contribute
+## 参与贡献
 
-You'll need to [sign up for a GitHub account](https://github.com/signup/free) if
-you do not already have one in order to contribute to the specification.
+如果你没有 GitHub 账号，为了参与文档撰写你需要[申请 GitHub 账号](https://github.com/signup/free)。
 
-The xAPI Spec Working Group meets
-the first, second, and third Wednesdays of each month on GoToWebinar. You can register at [https://attendee.gotowebinar.com/register/5526804432322315009](https://attendee.gotowebinar.com/register/5526804432322315009)
+xAPI 文档工作群在 GoToMeeting 上于每个月的第一、二、三的周三召开会议。你可以在 [https://global.gotomeeting.com/join/686232837 ]https://global.gotomeeting.com/join/686232837 上注册参与。
 
-Please refer to the [Contribution guidelines](CONTRIBUTING.md) for further direction and a list of contributors.
+请查看[贡献参考](CONTRIBUTING.md)了解未来发展方向和贡献者名单。
