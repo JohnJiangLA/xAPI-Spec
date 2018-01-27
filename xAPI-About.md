@@ -103,13 +103,16 @@
 
 <a name="partone"></a>
 # Part One: About the Experience API
+# 第一部分：关于 Experience API
 
 <a name="introduction-partone"></a>
 ## 1.0 Introduction
+## 1.0 介绍
 
 The Experience API (xAPI) is a technical specification that aims to facilitate the documentation and communication of 
 learning experiences. It specifies a structure to describe learning experiences and defines how these descriptions can 
-be exchanged electronically.  
+be exchanged electronically.  
+Experience API（xAPI）是一个用于记录和交换学习经验的的技术标准，它
 
 The xAPI is an effort of the Advanced Distributed Learning (ADL) Initiative.  ADL was established in 1997 to 
 standardize and modernize training and education management and delivery in the US. Since that time, there has been a 
