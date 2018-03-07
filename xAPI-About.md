@@ -346,94 +346,54 @@ __Vocabulary__ ：CoP 用于标记或分类特定领域信息的术语表或汇�
 
 ##### 经验追踪
 
-###### Figure 1: Data Flow in xAPI
+###### 图 1：xAPI 中的数据流
 ![Data Flow in xAPI](./xAPIDataFlow.jpg)
 
-Figure 1 shows the tracking of learning experiences. A learner has a learning experience. This experience could take place in an 
-online course, it could be on the job or it could be part of recreation. It really could be anything. This experience is tracked, 
-on the learner’s behalf, by a trusted Learning Record Provider (LRP). The Learning Record Provider can also be responsible for the 
-trusted relationship between the experience and the learner. This might even include launching content for the learner and 
-managing digital rights associated with the content.  
+图 1 显示了对学习体验的追踪过程。学习者得到一种学习经验。这种经验可以在一次在线课程中进行也可以在工作中进行，也可以作为娱乐的一部分。它可以是任何东西。这种体验由一个受信任的学习记录提供者（LPR）来追踪记录学习者的行为。学习记录提供者也要对学习经验和学习者间的可信关联负责。这甚至可能包括为学习者创设内容并管理与内容相关联的数字权限认证。
 
-The Learning Record Provider creates Learning Records and sends them to one or more Learning Record Stores (LRSs). The LRS stores
-the Learning Records and makes them available to any authorized Client. A Learning Record Consumer (LRC) is a type of Client that accesses 
-Learning Records and makes use of them.
+学习记录提供者创建学习记录并将它们发送到一个或多个学习记录库中（LRS）。LRS存储学习记录并使其可供任何授权用户访问。学习记录消费者（LRC）是一种访问学习记录并将其发挥效用的客户端。
 
-##### Activity Data and Metadata
+##### 互动数据和元数据
 
-###### Figure 2: xAPI Activity Data and Metadata
+###### 图 2：xAPI 活动数据和元数据
 ![xAPI Activity Data and Metadata](./xAPIMetadata.jpg)
 
-Understanding how a single Activity (as uniquely identified by its IRI) is defined and described is a key concept in xAPI. 
-Figure 2 shows this process. An Activity (as a part of a Statement) has metadata properties that may be populated within the 
-Statement itself. This is done in the Statement's Activity Definition. The id of each Activity is an IRI which also could have 
-metadata located at the resolution location of the IRI. Any metadata where the IRI resolves is under the control of the Metadata 
-Provider. The Metadata Provider is also responsible for making sure the IRI is permanent and resolves correctly.
+xAPI 中的一个关键概念是了解如何定义和描述单个活动（由其 IRI 唯一标示）。图 2 显示了这个过程。活动（作为语句的一部分）具有可以在语句本身中填充的元数据属性。这是在声明的活动定义中完成的。每个活动的id是一个IRI，它也可能具有位于IRI分辨率位置的元数据。 IRI解析的任何元数据都在Metadata Provider的控制之下。元数据提供者还负责确保IRI是永久性的并且正确解决。
 
-Any metadata located at where the IRI resolves is the authoritative source of metadata, and could be used to populate the LRS's 
-canonical version of the Activity's metadata (LRS's Activity Definition) as a preference to what it receives from Statements. 
-A Metadata Consumer can access metadata via the IRI for the authoritative version or can query the Activities Resource for the 
-canonical version.
+位于IRI解析位置的任何元数据都是权威的元数据源，并且可以用来填充LRS的活动元数据（LRS的活动定义）的标准版本，作为从语句接收的内容的偏好。元数据使用者可以通过IRI访问元数据，或者查询规范版本的活动资源。
 
 ##### Agent and Persona Management
 
 ###### Figure 3: xAPI Agent and Persona Management
 ![xAPI Activity Data and Metadata](./xAPIPersonas.jpg)
 
-xAPI grants the framework for allowing selective access to one's personal data. This is done through the management of what are 
-called personas. In xAPI, each persona represents the "I" in "I did this" and is logically the subject of the Statement. Each 
-Agent or Group in xAPI corresponds to a persona. A learner sending Learning Records to an LRS could have multiple personas (Agents) 
-associated with him or her. 
+xAPI授予允许选择性访问个人数据的框架。这是通过管理所谓的人物角色来完成的。在xAPI中，每个角色都代表“我做了这件事”中的“我”，并且在逻辑上是陈述的主题。 xAPI中的每个代理或组对应于一个角色。将学习记录发送给LRS的学习者可以具有与他或她相关联的多个人物角色（代理人）。
 
-In Figure 3, a learner accesses multiple services. Some of these services are used at work, others at home.  Some are used for 
-social purposes and others are used for educational or professional puproses.  Thus, there are multiple personas functioning 
-collectively within these services.  Each of these services send data to the LRS. Afterwards, there are Statements from three 
-different personas of the same learner. 
+在图3中，学习者访问多个服务。其中一些服务在工作中使用，其他服务在家使用。有些用于社会目的，其他用于教育或专业的学生。因此，这些服务中有多个人物角色集体起作用。这些服务中的每一个都将数据发送给LRS。之后，有来自同一个学习者的三个不同人物角色的陈述。
 
-The LRS can aggregate all of the information of each of the personas into one "Person" Object. This object can be retrieved from 
-The LRS via the [Agents Resource](./xAPI-Communication.md#agentsres). How the LRS knows that these 
-multiple personas belong to a single person is out of scope of this specification and there are several different approaches
-that an LRS can take. It's also possible that some LRSs will have no mechanism for associating personas. 
+LRS可以将每个角色的所有信息聚合成一个“Person”对象。此对象可以通过[代理资源]（./ xAPI-Communication.md＃agentsres）从LRS中检索。 LRS如何知道这些多个人物角色属于一个人，超出了本规范的范围，并且LRS可以采取几种不同的方法。一些LRS也可能没有关联角色的机制。
 
 <a name="extending-xapi"></a>
 
 ## 6.0 Extending xAPI
 
-xAPI can be extended in a few ways. The most notable are Statement extensions, which allow great flexibility within Statements. 
-It is recommended that Communities of Practice agree on how to use extensions for their particular use cases and utilize 
-profiles whenever possible. Implementation details are covered in [4.1 Extensions](./xAPI-Data.md#miscext).
+xAPI可以通过几种方式进行扩展。最值得注意的是语句扩展，它在语句中提供了很大的灵活性。建议实践社区就如何针对其特定用例使用扩展程序达成一致，并尽可能使用配置文件。实现细节在[4.1扩展]（./ xAPI-Data.md＃miscext）中介绍。
 
-The About Resource is another instance where xAPI supports extensions.  The LRS may find it useful to communicate features or 
-behaviors beyond this specification. The LRS can use extensions to the About Resource to facilitate this communication.
+关于资源是xAPI支持扩展的另一个实例。 LRS可能会发现交流本规范之外的功能或行为很有用。 LRS可以使用关于资源的扩展来促进此通信。
 
-Finally, the set of resources implemented is not expected to be constrained by this document. Resources beyond 
-those listed in this specification can be implemented and co-exist with the resources defined in this specification.
+最后，所实施的这套资源预计不会受到本文件的限制。本规范中列出的资源之外的资源可以实现并与本规范中定义的资源共存。
 
 <a name="COPs"></a>
 
 ## 7.0 Profiles, Vocabularies, and Communities of Practice
 
-xAPI strictly defines the structure of Statements, but is very flexible as to the contents of that structure. For example, the 
-specification requires that all Statements have a "verb" property, but does not restrict the values of that property; any Verb 
-can be used. This flexibility enables xAPI to be used in any context, including future use cases not envisaged by the 
-specification authors.
+xAPI严格定义语句的结构，但对于该结构的内容非常灵活。例如，规范要求所有语句具有“动词”属性，但不限制该属性的值;任何动词都可以使用。这种灵活性使得xAPI能够用于任何环境，包括未被规范作者设想的未来用例。
 
-It is intended that [Communities of Practice (CoPs)](#def-community-of-practice) will define Verbs, Activity types, 
-contextual relationships, extensions, etc. 
-to be used in their profiles by providing unique identifiers wherever applicable. The CoP will define these identifiers and 
-their metadata in a [Vocabulary](#def-vocabulary). A profile is a set of rules and vocabularies to implemented in addition to 
-xAPI for the particular use case being addressed. It is very important that such communities exist and share best practices. 
-For more information on publishing vocabularies, see the [Vocabulary Companion Specification](https://adl.gitbooks.io/companion-specification-for-xapi-vocabularies/content) and [Vocabulary Primer](https://adl.gitbooks.io/experience-xapi-vocabulary-primer/content/) documents.
+目的是[实践社区（CoPs）](#def-community-of-practice)通过在适用的地方提供唯一标识符来定义要在其配置文件中使用的动词，活动类型，上下文关系，扩展等。 CoP将在[词汇表](#def-vocabulary)中定义这些标识符及其元数据。配置文件是一组规则和词汇表，除了针对正在解决的特定用例的xAPI之外，还将实施。这些社区存在并分享最佳实践非常重要。更多有关发布词汇表的信息请查看 [Vocabulary Companion Specification](https://adl.gitbooks.io/companion-specification-for-xapi-vocabularies/content) 和 [Vocabulary Primer](https://adl.gitbooks.io/experience-xapi-vocabulary-primer/content/) documents。
 
-It is recommended that a profile use a unique "category" within a Statement's context to refer to any Statement  
-which implements the profile.  An example profile is [cmi5](https://github.com/AICC/CMI-5_Spec_Current), 
-which is designed for the traditional single learner, single online learning use case.  An example cmi5 Statement can 
-be found in [Appendix B: cmi5 Example](#Appendix1B).
+建议配置文件在语句的上下文中使用唯一的“类别”来引用实现配置文件的任何语句。示例配置文件是[cmi5]（https://github.com/AICC/CMI-5_Spec_Current），它是为传统的单一学习者，单一在线学习用例而设计的。 cmi5语句示例可在[附录B：cmi5示例]（＃附录1B）中找到。
 
-CoPs are highly recommended to avoid duplication of effort, as creating too many ways to solve the same problem 
-will cause fragmentation in similar domains and can potentially hurt interoperability.  An example of a CoP for the medical 
-field is the [MedBiquitous Learning Experience Working Group](http://groups.medbiq.org/medbiq/display/XIG/Learning+Experience+Group+Home).
-
+强烈建议CoP避免重复工作，因为创建太多方法来解决相同的问题会导致类似域中的碎片化，并可能会影响互操作性。医学领域的CoP的一个例子是 [MedBiquitous Learning Experience Working Group](http://groups.medbiq.org/medbiq/display/XIG/Learning+Experience+Group+Home)。
 
 <a name="append1"></a>
 ## Appendices
@@ -442,9 +402,7 @@ field is the [MedBiquitous Learning Experience Working Group](http://groups.medb
 ### Appendix A: Revision History
 ###### 0.8 (Project Tin Can API Deliverable) to 0.9 (March 31, 2012)  
 
-Rustici Software, who delivered the Project Tin Can API, made modifications to the 
-API prior to the April 2012 Kickoff Meeting. It was voted in this meeting to 
-move those changes into the current specification and revision to 0.9.
+在2012年4月的Kickoff会议之前，提供Tin Can API项目的Rustici Software对API进行了修改。它在这次会议上被投票决定将这些改变转移到当前的规范和修订版本0.9。
 
 ###### 0.90 to 0.95 (August 31, 2012)  
 
