@@ -103,13 +103,12 @@
 
 
 <a name="parttwo"></a>
-# Part Two: Experience API Data
+# Part Two: Experience API 数据
 
 <a name="documents"></a>
 ## <a name="1.0">1.0</a> Documents
 
-The Experience API provides a facility for Learning Record Providers to save arbitrary data in the form of documents.  This data 
-is largely unstructured, which allows for flexibility.  Specifics on document behaviors can be found in [Part 3](./xAPI-Communication.md#doctransfer) 
+Experience API为学习记录提供者提供了一种工具，以便以文档形式保存任意数据。这些数据在很大程度上是非结构化的，这就提供了灵活性。关于文档行为的细节可以在[Part 3](./xAPI-Communication.md#doctransfer) 。
 
 <a name="statements"></a> 
 
@@ -118,20 +117,14 @@ is largely unstructured, which allows for flexibility.  Specifics on document be
 <a name="statement-purpose"></a> 
 ### <a name="2.1">2.1</a> Purpose
 
-Statements are the evidence for any sort of experience or event which is to be tracked in xAPI. 
-While Statements follow a machine readable JSON format, they can also easily be described
-using natural language. This can be extremely useful for the design process. Statements are 
-meant to be aggregated and analyzed to provide larger meaning for the overall experience than 
-just the sum of its parts.
+声明是xAPI中要跟踪的任何类型的经验或事件的证据。虽然语句遵循机器可读的JSON格式，但也可以使用自然语言轻松描述。这对设计过程非常有用。为了给整体经验提供更大的意义，而不仅仅是各部分的总和，汇总和分析汇总表。
 
 <a name="dataconstraints"></a>
 ### <a name="2.2">2.2</a> Formatting Requirements
 
 ###### <a name="2.2.s1"></a>Details
 
-All of the properties used in Statements are restricted to certain data types. For clarity, key requirements are 
-documented here, emphasizing where xAPI components have a responsibility to act in certain ways to be considered 
-conformant to this specification.
+语句中使用的所有属性都仅限于某些数据类型。为了清楚起见，此处记录了关键要求，强调xAPI组件在某些方面有责任以符合本规范的方式行事。
 
 ###### <a name="2.2.s2"></a>Requirements
 
@@ -144,10 +137,7 @@ conformant to this specification.
 
 ###### <a name="2.2.s3"></a>Learning Record Provider Requirements
 
-The following requirements reiterate especially important requirements already included elsewhere, to emphasize,
-clarify, and provide implementation guidance.  Some types of validation, such as complete IRI validation and validation 
-that properties appear only once, are extremely difficult, so much of the burden 
-for ensuring data portability is on the Learning Record Provider.
+以下要求重申其他地方已经包含的特别重要的要求，以强调，澄清并提供实施指导。某些类型的验证（例如完整的IRI验证和属性只出现一次的验证）非常困难，因此确保数据可移植性的负担很重要在学习记录提供者上。
 
 * <a name="2.2.s3.b1"></a>Values requiring IRIs MUST be sent with valid IRIs. 
 * <a name="2.2.s3.b2"></a>Keys of language maps MUST be sent with valid [RFC 5646](http://tools.ietf.org/html/rfc5646) 
@@ -160,8 +150,7 @@ language tags, for similar reasons.
 within an object, the behavior of the LRS is undefined; it is expected that most LRSs will use existing JSON parsing 
 functionality of whichever code languages they use. 
 
-__Note:__ The LRS is recommended to reject Statements containing additional properties. Additional properties in 
-Statements would mean that the Statement would not be interoperable with all LRSs. 
+__Note:__ 建议LRS拒绝包含其他属性的语句。声明中的其他属性意味着声明不能与所有LRS进行互操作。
 
 ###### <a name="2.2.s4"></a>LRS Requirements
 
@@ -195,18 +184,15 @@ allowed by this specification and the LRS SHOULD* reject Statements containing s
 
 ### <a name="2.3">2.3</a> Statement Lifecycle
 
-Statements are information about a tracked learning experience. Typically, the information represented in the 
-Statement has already happened. Thus, the natural language used in "display" or in the human-readable portion of 
-the Verb id will usually use the past tense.
+语句是关于跟踪学习体验的信息。通常情况下，报表中的信息已经发生。因此，在“显示”中使用的自然语言或在动词ID的人可读部分中通常使用过去式。
 
-Statements are expected to be permanent. The only way to undo a Statement within this specification is to 
-[void it](#voided). Voiding does not destroy a Statement, rather indicates the evidence in the Statement is to be disregarded.
+预计报表将是永久性的。在本规范中撤消声明的唯一方法是[使其无效](#void)。消除不会破坏一个陈述，而是表明陈述中的证据将被忽略。
 
 <a name="statement-immutability-and-exceptions"></a>
 
 #### <a name="2.3.1">2.3.1</a> Statement Immutability
 
-Statements are immutable (they cannot be changed). The following are exceptions or areas not covered by this rule:
+陈述是不可变的（他们不能改变）。以下是本规则未涵盖的例外或区域：
 
 * <a name="2.3.1.b1"></a>Potential or required assignments of properties during LRS processing 
 ("id", "authority", "stored", "timestamp", "version"). 
@@ -257,14 +243,9 @@ compared to see if they match. In these scenarios, the following rules apply:
 
 ###### <a name="2.3.2.s1"></a>Rationale
 
-The certainty that an LRS has an accurate and complete collection of data is guaranteed by the fact that Statements 
-cannot be logically changed or deleted. This immutability of Statements is a key factor in enabling the distributed 
-nature of Experience API.
+LRS具有准确和完整的数据收集的确定性由语句不能在逻辑上改变或删除的事实所保证。声明的这种不变性是实现体验API分布式特性的关键因素。
 
-However, not all Statements are perpetually valid once they have been issued. Mistakes or other factors could dictate 
-that a previously made Statement is marked as invalid. This is called "voiding a Statement" and the reserved 
-Verb `http://adlnet.gov/expapi/verbs/voided` is used for this purpose. Any Statement that voids another
-cannot itself be voided.
+但是，并非所有的声明一旦发布就永远有效。错误或其他因素可能会导致先前制作的声明被标记为无效。这称为“排除声明”，并且保留的动词“http：// adlnet.gov / expapi / verbs / voided”用于此目的。任何使另一个无效的陈述本身都不能成立。
 
 ###### <a name="2.3.2.s2"></a>Requirements
 
@@ -289,8 +270,7 @@ See [StatementRef](./xAPI-Communication.md#queryStatementRef) in Part 3).
 
 ###### <a name="2.3.2.s3"></a>Example
 
-This example Statement voids a previous Statement which it identifies with the Statement id "e05aa883-acaf-40ad-bf54-02c8ce485fb0".
-
+此示例语句将使语句ID为“e05aa883-acaf-40ad-bf54-02c8ce485fb0”的前一个语句失效。
 ```
 {
 	"actor" : {
@@ -314,7 +294,7 @@ This example Statement voids a previous Statement which it identifies with the S
 ### <a name="2.4">2.4</a> Statement Properties  
 
 ###### <a name="2.4.s1"></a>Details
-The details of each property of a Statement are described in the table below.  
+下表描述了一份声明的每个属性的详细信息。
 
 <table>
 	<tr><th>Property</th><th>Type</th><th>Description</th><th>Required</th></tr>
@@ -362,9 +342,8 @@ The details of each property of a Statement are described in the table below.
 
 ###### <a name="2.4.s2"></a>Example
 
-An example of the simplest possible Statement using all properties that MUST or SHOULD be used.
-It is recommended to also populate optional properties where relevant. 
-When this Statement is returned from the LRS it will include some additional properties added by the LRS.  
+使用必须或应该使用的所有属性的最简单可能的语句的示例。建议还在相关的位置填充可选属性。从LRS返回本声明时，它将包含LRS添加的一些附加属性。
+
 ```
 {
     "id": "12345678-1234-5678-1234-567812345678",
@@ -382,7 +361,7 @@ When this Statement is returned from the LRS it will include some additional pro
     }
 }
 ```  
-See [Appendix A: Example Statements](#Appendix2A) for more examples. 
+ 在 [Appendix A: Example Statements](#Appendix2A) 查看更多样例。
 
 <a name="stmtid"></a> 
 
@@ -390,8 +369,7 @@ See [Appendix A: Example Statements](#Appendix2A) for more examples.
 
 ###### <a name="2.4.1.s1"></a>Description
 
-A UUID (all versions of variant 2 in [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt) are valid, and the UUID MUST 
-be in standard string form).
+UUID（[RFC 4122](http://www.ietf.org/rfc/rfc4122.txt) 中的变体2的所有版本都是有效的，并且UUID必须是标准字符串形式）。
 
 ###### <a name="2.4.1.s2"></a>Requirements
 
@@ -403,7 +381,7 @@ be in standard string form).
 #### <a name="2.4.2">2.4.2</a> Actor  
 
 ###### <a name="2.4.2.s1"></a>Description
-The Actor defines who performed the action. The Actor of a Statement can be an Agent or a Group. 
+Actor 定义谁执行了该操作。声明的演员可以是代理或组。
 
 <a name="agent"></a>
 
@@ -418,7 +396,7 @@ An Agent (an individual) is a persona or system.
 * <a name="2.4.2.1.s2.b2"></a>An Agent MUST NOT include more than one (1) Inverse Functional Identifier;
 * <a name="2.4.2.1.s2.b3"></a>An Agent SHOULD NOT use Inverse Functional Identifiers that are also used as a Group identifier.
 
-The table below lists the properties of Agent Objects.
+下表列出了代理对象的属性。
 
 <table border ="1">
 	<tr><th>Property</th><th>Type</th><th>Description</th><th>Required</th></tr>
@@ -437,13 +415,11 @@ The table below lists the properties of Agent Objects.
 ##### <a name="2.4.2.2">2.4.2.2</a> When the Actor ObjectType is Group
 ###### <a name="2.4.2.2.s1"></a>Description
 
-A Group represents a collection of Agents and can be used in most of the same situations an Agent 
-can be used.  There are two types of Groups: Anonymous Groups and Identified Groups.
+一个组代表一个Agent的集合，并且可以用于大多数Agent可以使用的相同情况。有两种类型的组：匿名组和识别组。
 
 ###### <a name="2.4.2.2.s2"></a>Details
 
-An Anonymous Group is used describe a cluster of people where there is no ready identifier for 
-this cluster, e.g. an ad hoc team.
+使用匿名组描述一群人，其中没有该群集的就绪标识符，例如，一个特设小组。
 
 The table below lists all properties of an Anonymous Group.
 
@@ -456,9 +432,9 @@ The table below lists all properties of an Anonymous Group.
 	<td>Required</td></tr>
 </table>
 
-An Identified Group is used to uniquely identify a cluster of Agents.
+识别的组用于唯一标识一组代理。
 
-The table below lists all properties of an Identified Group.
+下表列出了已识别组的所有属性。
 
 <table border ="1">
 	<tr><th>Property</th><th>Type</th><th>Description</th><th>Required</th></tr>
@@ -508,7 +484,7 @@ by the widely accepted FOAF principle (see: [Friend Of A Friend](http://xmlns.co
 
 ###### <a name="2.4.2.3.s3"></a>Details
 
-The table below lists all possible Inverse Functional Identifier properties.
+下表列出了所有可能的反向功能标识符属性。
 
 <table border ="1">
 	<tr><th>Property</th><th>Type</th><th>Description</th></tr>
@@ -530,8 +506,7 @@ for the domain portion of the email address when calculating the SHA1 hash for t
 
 ###### <a name="2.4.2.4.s1"></a>Description
 
-A user account on an existing system, such as a private system (LMS or intranet) or a public
-system (social networking site).
+现有系统上的用户帐户，如私人系统（LMS或Intranet）或公共系统（社交网站）。
 
 ###### <a name="2.4.2.4.s2"></a>Details
 
@@ -541,7 +516,7 @@ SHOULD use the openid property instead of an account Object.
 information about an Agent or Group, it SHOULD use an opaque account name (for example an
 account number) to identify all Statements about a person while maintaining anonymity.
 
-The table below lists all properties of Account Objects.
+下表列出了帐户对象的所有属性。
 
 <table border ="1">
 	<tr><th>Property</th><th>Type</th><th>Description</th><th>Required</th></tr>
@@ -553,7 +528,7 @@ The table below lists all properties of Account Objects.
 
 ###### <a name="2.4.2.4.s3"></a>Example
 
-This example shows an Agent identified by an opaque account:
+此示例显示由不透明帐户标识的代理程序：
 
 ```
 {
@@ -575,18 +550,11 @@ The Verb defines the action between an Actor and an Activity.
 
 ###### <a name="2.4.3.s2"></a>Rationale
 
-The Verb in an xAPI Statement describes the action performed during the learning experience. The 
-xAPI does not specify any particular Verbs. (With one exception, namely the reserved 
-Verb [http://adlnet.gov/expapi/verbs/voided](#voided)). Instead, it defines how to create Verbs so that 
-communities of practice can establish Verbs meaningful to their members and make them available 
-for use by anyone. A predefined list of Verbs would be limited by definition and might not be able to 
-effectively capture all possible future learning experiences. 
+xAPI声明中的动词描述了在学习过程中执行的操作。 xAPI没有指定任何特定的动词。 （有一个例外，即保留的动词[http://adlnet.gov/expapi/verbs/voided](#voided））。相反，它定义了如何创建动词，以便练习社区可以建立对其成员有意义的动词并使其可供任何人使用。预定义的动词列表将受限于定义，可能无法有效捕获所有可能的未来学习体验。
 
 ###### <a name="2.4.3.s3"></a>Details
 
-Verbs appear in Statements as Objects consisting of an IRI and a set of display names 
-corresponding to multiple languages or dialects which provide human-readable meanings of the Verb. 
-The table below lists all properties of the Verb Object.
+动词在语句中以对象形式出现，该对象由IRI和与多种语言或方言对应的一组显示名称组成，这些语言或方言提供了动词的人类可读含义。下表列出了动词对象的所有属性。
 
 <table>
 	<tr><th>Property</th><th>Type</th><th>Description</th><th>Required</th></tr>
@@ -624,7 +592,7 @@ by the Verb IRI.
 
 ###### <a name="2.4.3.s6"></a>Verb Display LRS Requirements
 
-The requirements below relate to the "display" property as returned by the LRS via the API.  
+以下要求与LRS通过API返回的“显示”属性相关。
 
 * <a name="2.4.3.s6.b1"></a>When queried for Statements with a Format of `exact`, the LRS MUST return the "display" property 
 exactly as included (or omitted) within the Statement.
@@ -637,7 +605,7 @@ Statements it receives, the "name" property included in the metadata as describe
 
 ###### <a name="2.4.3.s7"></a>Verb Display Learning Record Consumer Requirements
 
-The requirements below relate to the display property as displayed to a user by a Learning Record Consumer. 
+以下要求与学习记录消费者向用户显示的显示属性相关。
 
 * <a name="2.4.3.s7.b1"></a>The "display" property MUST NOT be used to alter the meaning of a Verb.
 * <a name="2.4.3.s7.b2"></a>A Learning Record Consumer MUST NOT use the "display" property to infer any meaning from the Statement.
@@ -651,7 +619,7 @@ the Verb's "display" property included within the Statement, the "name" property
 from the meaning of the Verb but MAY alter the wording and tense displayed for the purposes of human-readability. 
 
 ###### <a name="2.4.3.s8"></a>Example
-This example shows a Verb with the recommended properties set and using US English and Spanish languages. 
+本示例显示了一个带有推荐属性并使用美国英语和西班牙语的Verb。
 ```
 {
     "id":"http://example.com/xapi/verbs#defenestrated", 
@@ -662,9 +630,7 @@ This example shows a Verb with the recommended properties set and using US Engli
 }
 ``` 
 
-The Verb in the example above is included for illustrative purposes only. This is not intended to imply that
-a Verb with this meaning has been defined with this id. This applies to all example verbs given in this 
-specification document, with the exception of the reserved Verb [http://adlnet.gov/expapi/verbs/voided](#voided)).
+以上示例中的动词仅用于说明目的。这并不意味着用这个id定义了一个具有这个意义的动词。这适用于本规范文档中给出的所有示例动词，但保留动词[http://adlnet.gov/expapi/verbs/voided](#voided)）除外。
 			
 ##### <a name="2.4.3.1">2.4.3.1</a> Use in Language and Semantics of Verbs
 
@@ -672,22 +638,17 @@ specification document, with the exception of the reserved Verb [http://adlnet.g
 
 _Semantics_
 
-The IRI represented by the Verb id identifies the particular semantics of a word, not the word itself. 
+由动词id表示的IRI标识了单词的特定语义，而不是单词本身。
 
-For example, the English word "fired" could mean different things depending on context, such as 
-"fired(a weapon)", "fired(a kiln)", or "fired(an employee)". In this case, an IRI identifies one of 
-these specific meanings. 
+例如，英文单词“被解雇”可能意味着不同的事情，例如“解雇（武器）”，“解雇（窑）”或“解雇（雇员）”等。在这种情况下，IRI识别这些具体含义之一。
 
-The "display" property has some flexibility in tense. While the human-readable portion of the Verb id will 
-usually use the past tense, if conjugating verbs to another tense within the "display" property makes the most
-sense for the Statement as a whole, it is allowed.
+“显示”属性在时态上有一定的灵活性。虽然动词id的人类可读部分通常会使用过去式，但如果将动词与“display”属性中的另一个时态结合在一起使得整个Statement最为重要，那么它是允许的。
 
 _Language_
 
-A Verb in the Experience API is an IRI, and denotes a specific meaning not tied to any particular language. 
+体验API中的动词是一种 IRI，表示与任何特定语言无关的特定含义。
 
-For example, a particular Verb IRI such as http://example.org/firearms#fire might denote the action of firing a gun, 
-or the Verb IRI http://example.com/فعل/خواندن might denote the action of reading a book. 
+例如，一个特定的动词 IRI 如 http://example.org/firearms#fire 可能表示发射枪的动作，或动词IRI http://example.com/فعل/خواندن 可能表示阅读动作一本书。
 
 <a name="object"></a>
 
@@ -695,10 +656,9 @@ or the Verb IRI http://example.com/فعل/خواندن might denote the action o
 
 ###### <a name="2.4.4.s1"></a>Description
 
-The Object defines the thing that was acted on. The Object of a Statement can be an Activity, Agent/Group, 
-SubStatement, or Statement Reference.
+该对象定义了被执行的内容。报表的对象可以是活动，代理/组，子报表或报表参考。
 
-Some examples:
+一些样例：
 
 * <a name="2.4.4.s1.b1"></a>The Object is an Activity: "Jeff wrote an essay about hiking."
 
@@ -713,14 +673,15 @@ Objects which are provided as a value for this property SHOULD include an "objec
 objectType is assumed to be `Activity`. Other valid values are: `Agent`, `Group`, `SubStatement` or `StatementRef`.
 The properties of an Object change according to the objectType.
 
+作为这个属性值提供的对象应该包含一个“objectType”属性。如果未指定，则objectType假定为“Activity”。其他有效的值是： `Agent`，`Group`，`SubStatement` 或 `StatementRef`。Object的属性根据objectType而改变。
+
 <a name="activity"></a>
 
 ##### <a name="2.4.4.1">2.4.4.1</a> When the ObjectType is Activity
 
 ###### <a name="2.4.4.1.s1"></a>Details
 
-A Statement can represent an Activity as the Object of the Statement. The following table lists the Object 
-properties in this case.
+一个声明可以表示一个活动作为声明的对象。下表列出了这种情况下的对象属性。
 
 <table>
 	<tr><th>Property</th><th>Type</th><th>Description</th><th>Required</th></tr>
@@ -743,14 +704,11 @@ properties in this case.
 	</tr>
 </table>
 
-If it were possible to use the same id for two different Activities, the validity of Statements about 
-these Activities could be questioned. This means an LRS can't ever treat (references to) the same 
-Activity id as belonging to two different Activities, even if it thinks this was intended. Namely, 
-when a conflict with another system occurs, it’s not possible to determine which Activity is intended. 
+如果可以在两个不同的活动中使用相同的ID，那么有关这些活动的陈述的有效性可能会受到质疑。这意味着LRS不能将属于两个不同活动的相同Activity id视为（引用），即使它认为这是有意的。也就是说，当与另一个系统发生冲突时，无法确定哪个活动是打算的。
 
 
 ###### <a name="2.4.4.1.s2"></a><a name="actdef"></a>Activity Definition
-The table below lists the properties of the Activity Definition Object:
+下表列出了活动定义对象的属性：
 
 <table>
 	<tr><th>Property</th><th>Type</th><th>Description</th><th>Required</th></tr>
@@ -832,18 +790,13 @@ of the Activity to break compatibility.
 
 ###### <a name="2.4.4.1.s7"></a>Rationale
 
-Traditional e-learning has included structures for interactions or assessments. As a way to allow these practices and
-structures to extend Experience API's utility, this specification includes built-in definitions for interactions, which
-borrows from the SCORM 2004 4th Edition Data Model. These definitions are intended to provide a simple and familiar utility
-for recording interaction data. Since 1.0.3, direct references to the SCORM data model have started to be removed, and any
-associated requirements included directly in this document.
+传统的电子学习包括交互或评估的结构。作为允许这些实践和结构扩展Experience API实用程序的一种方式，本规范包含了从SCORM 2004第4版数据模型借鉴的内置交互定义。这些定义旨在为记录交互数据提供简单而熟悉的实用程序。自1.0.3以来，直接引用SCORM数据模型已经开始被删除，并且任何相关需求都直接包含在本文档中。
 
-These interaction definitions are simple to use, and consequently limited. It is expected that Communities of Practice
-requiring richer interactions definitions will do so through the use of Activity types and Activity Definition Extensions. 
+这些交互定义使用简单，因此受到限制。预计需要更丰富的交互定义的实践社区将通过使用活动类型和活动定义扩展来实现。
 
 ###### <a name="2.4.4.1.s8"></a>Details
 
-The table below lists the properties for Interaction Activities.
+下表列出了交互活动的属性。
 
 <table>
 	<tr><th>Property</th><th>Type</th><th>Description</th><th>Required</th></tr>
@@ -871,9 +824,7 @@ The table below lists the properties for Interaction Activities.
 
 ###### <a name="2.4.4.1.s9"></a>Interaction Types
 
-The table below describes the kinds of interactions represented by each of the interactionTypes. These types of interactions 
-were originally based on the types of interactions allowed for "cmi.interactions.n.type" in the SCORM 2004 4th 
-Edition Run-Time Environment. See [Appendix C](#Appendix2C) for examples definitions for each interaction type. 
+下表描述了每个interactionType表示的交互类型。这些类型的交互最初基于SCORM 2004第4版运行环境中“cmi.interactions.n.type”允许的交互类型。有关每种交互类型的示例定义，请参见[附录C]（＃附录2C）。
 
 <table>
 	<tr><th>interactionType</th><th>Description</th></tr>
@@ -928,10 +879,7 @@ Edition Run-Time Environment. See [Appendix C](#Appendix2C) for examples definit
 </table>
 
 ###### <a name="2.4.4.1.s10"></a>Response Patterns
-The table below outlines the format of the strings within "correctResponsesPattern" property for each interaction type. 
-This format is also used to represent the learner's response within the Result Object. These formats were originally based on the 
-requirements relating to "cmi.interactions.n.correct_responses.n.pattern" as defined in the SCORM 2004 4th Edition 
-Run-Time Environment. See [Appendix C](#Appendix2C) for examples of each format. 
+下表概述了每个交互类型的“correctResponsesPattern”属性内的字符串格式。这种格式也被用来表示学习者在结果对象中的回应。这些格式最初基于与SCORM 2004第4版运行环境中定义的“cmi.interactions.n.correct_responses.n.pattern”相关的要求。有关每种格式的示例，请参见[附录C]（＃附录2C）。
 
 <table>
 	<tr><th>interactionType</th><th>Format</th></tr>
@@ -987,10 +935,7 @@ Run-Time Environment. See [Appendix C](#Appendix2C) for examples of each format.
 
 ###### <a name="2.4.4.1.s11"></a>Correct Responses Pattern
 
-The Correct Responses Pattern contains an array of response patterns. A learner's response will be considered correct if it 
-matches **any** of the response patterns in that array. Where a response pattern is a delimited list, the learner's response 
-is only considered correct if **all** of the items in that list match the learner's response. For example, consider the 
-Correct Responses Pattern with a value of:
+正确的响应模式包含一组响应模式。如果学习者的答案与该阵列中的任何**响应模式匹配，则该答案将被视为正确。如果答案模式是分隔列表，则只有在该列表中的所有项目**都与学习者的答案相匹配时，才会将学习者的答案视为正确。例如，请考虑具有以下值的正确响应模式：
 
 ```
 "correctResponsesPattern": [
@@ -999,31 +944,21 @@ Correct Responses Pattern with a value of:
 ]
 ``` 
 
-In this example, either "foo" and "bar", *or* just "foo" are correct learner responses; "bar" on it's own is not.
+在这个例子中，“foo”和“bar”，*或*只是“foo”是正确的学习者反应;它自己的“酒吧”不是。
 
-The Correct Responses Pattern, if used, is intended to be an exhaustive list of possible correct responses. Where the criteria 
-for a question are complex and correct responses cannot be exhaustively listed, Learning Record Providers are discouraged from 
-using the "correctResponsesPattern" property.
+如果使用正确的回答模式，则意在将其作为可能的正确回答的详尽列表。如果问题的标准很复杂，并且无法详尽列出正确的答案，学习记录提供者不鼓励使用“correctResponsesPattern”属性。
 
-Learning Record Consumers cannot infer success based on comparison of the response with the Correct Responses Pattern, 
-nor can they rely on the Correct Responses Pattern always being exhaustive. The Learning Record Provider is allowed to mark 
-questions as correct where the response does not match the correct responses pattern, though this is discouraged except in 
-exceptional circumstances.
+学习记录消费者无法通过将响应与正确响应模式进行比较来推断成功，也不能依赖正确响应模式始终详尽无遗。学习记录提供者可以在答案与正确答案模式不匹配的情况下将问题标记为正确，尽管除特殊情况外，这是不鼓励的。
 
-Where the Correct Responses Pattern contains an empty array, the meaning of this is that there is no correct
-answer; all answers are incorrect. Where any answer is correct (e.g. in a survey), the Correct Responses Pattern property
-is omitted. 
+如果正确响应模式包含一个空数组，则这意味着没有正确答案;所有的答案都不正确。如果答案是正确的（例如在调查中），则“正确答案模式”属性将被省略。
 
 ###### <a name="2.4.4.1.s12"></a>Characterstring parameters
 
-Some of the values within the responses described above can be prepended with certain additional parameters. These were 
-originally based on the characterstring delimiters defined in the SCORM 2004 4th Edition Run-Time Environment. These 
-parameters are represented by the format `{parameter=value}`. See [the long-fill-in example within Appendix C](#long-fill-in). 
+上述响应中的某些值可以附加某些附加参数。它们最初基于SCORM 2004第4版运行环境中定义的字符串分隔符。这些参数由格式 `{parameter = value}` 表示。请参阅[附录C中长时间填写的示例](#long-fill-in)。
 
-Characterstring parameters are not validated by the LRS. Systems interpreting Statement data can use their best judgement 
-in interpreting (or ignoring) invalid characterstring parameters and values.
+字符串参数未经LRS验证。解释Statement数据的系统可以在解释（或忽略）无效字符串参数和值时使用最佳判断。
 
-The following parameters are valid at the start of the string representing the list of items for the listed interaction types:
+以下参数在代表所列交互类型的项目列表的字符串开头处有效：
 <table>
 	<tr><th>Parameter</th><th>Default</th><th>Description</th><th>Value</th><th>Interaction types</th></tr>
 	<tr id="2.4.4.1.s12.table1.row1">
@@ -1042,7 +977,7 @@ The following parameters are valid at the start of the string representing the l
 	</tr>
 </table>
 
-The following parameters are valid at the start of each item in the list for the listed interaction types:
+以下参数在列出的交互类型的列表中的每个项目的开始处均有效：
 <table>
 	<tr><th>Parameter</th><th>Description</th><th>Value</th><th>Interaction types</th></tr>
 	<tr id="2.4.4.1.s12.table2.row1">
@@ -1070,7 +1005,7 @@ Interaction Activity.
 
 ###### <a name="2.4.4.1.s15"></a>Details
 
-Interaction components are defined as follows:  
+交互组件定义如下：
 
 <table>
 	<tr><th>Property</th><th>Type</th><th>Description</th><th>Required</th></tr>
@@ -1090,9 +1025,7 @@ Interaction components are defined as follows:
 
 <a name="#interactionComponentLists"></a>
 
-Depending on interactionType, Interaction Activities can take additional properties, each containing a 
-list of interaction components. These additional properties are called "interaction component lists". The following table
-shows the supported interaction component list(s) for an Interaction Activity with the given interactionType.
+根据interactionType，交互活动可以采用其他属性，每个属性都包含交互组件列表。这些附加属性被称为“交互组件列表”。下表显示了具有给定interactionType的交互活动所支持的交互组件列表。
 
 <table>
 	<tr id="2.4.4.1.s15.table2.row1"><th>interactionType</th><th>supported interaction component list(s)</th><th>Description</th><tr>
@@ -1133,11 +1066,7 @@ See [Actor](#actor) for details regarding Agents.
 
 ###### <a name="2.4.4.3.s1"></a>Rationale
 
-There are two possibilities for using a Statement as an Object. First, an Object can take on the form 
-of a Statement that already exists by using a Statement Reference. A common use case for 
-Statement References is grading or commenting on an experience that could be tracked as an 
-independent event. The special case of voiding a Statement would also use a Statement Reference.
-Second, an Object can be a brand new Statement by using a SubStatement. Each type is defined below.
+将Statement用作对象有两种可能性。首先，对象可以采用已经存在的使用语句引用的语句的形式。语句引用的常见用例是对可以作为独立事件进行跟踪的体验进行评分或评论。排除一个Statement的特殊情况也会使用一个Statement Reference。其次，一个Object可以通过使用一个SubStatement成为一个全新的Statement。每种类型定义如下。
 
 <a name="stmtref"></a>
 
@@ -1163,8 +1092,7 @@ The table below lists all properties of a Statement Reference Object:
 
 ###### <a name="2.4.4.3.s5"></a>Example
 
-Assuming that some Statement has already been stored with the id `8f87ccde-bb56-4c2e-ab83-44982ef22df0`, the following example 
-shows how a comment could be issued on the original Statement, using a new Statement:  
+假设某些 Statement 已经存储在 id 为 `8f87ccde-bb56-4c2e-ab83-44982ef22df0` 中，以下示例显示了如何使用新 Statement 对原始 Statement 执行注释：
 
 ```
 {
@@ -1193,10 +1121,7 @@ shows how a comment could be issued on the original Statement, using a new State
 ##### <a name="2.4.4.3.s6"></a>SubStatements
 
 ###### <a name="2.4.4.3.s7"></a>Description
-A SubStatement is like a StatementRef in that it is included as part of a containing Statement, but unlike a StatementRef, it 
-does not represent an event that has occurred. It can be used to describe, for example, a predication of a potential future 
-Statement or the behavior a teacher looked for when evaluating a student (without representing the student actually doing that 
-behavior). 
+子语句就像一个StatementRef，因为它作为包含Statement的一部分被包含，但与StatementRef不同，它不代表发生的事件。例如，它可以用来描述潜在的未来陈述或教师在评估学生时所期望的行为（而不是代表学生实际上在做这种行为）。
 
 ###### <a name="2.4.4.3.s8"></a>Requirements
 
@@ -1207,11 +1132,7 @@ behavior).
 
 ###### <a name="2.4.4.3.s9"></a>Example
 
-One interesting use of SubStatements is in creating Statements of intention. For example, using SubStatements we can create 
-Statements of the form `"<I> <planned> (<I> <did> <this>)"` to indicate that we've planned to take some action. The concrete 
-example that follows logically states that "I planned to visit 'Some Awesome Website'". 
- 
-
+子报表的一个有趣用途是创建意向表达。例如，使用SubStatements，我们可以创建形式为`“<I> <planned>（<I> <did> <this>）”`的语句来表明我们已经计划采取一些行动。逻辑上具体的例子说“我计划访问'一些很棒的网站'”。
 
 ```
 {
@@ -1256,7 +1177,7 @@ example that follows logically states that "I planned to visit 'Some Awesome Web
 
 ###### <a name="2.4.5.s1"></a>Description
 
-An optional property that represents a measured outcome related to the Statement in which it is included.
+一个可选属性，表示与包含它的Statement相关的测量结果。
 
 ###### <a name="2.4.5.s2"></a>Details
 
@@ -1309,11 +1230,12 @@ The following table contains the properties of the Result Object.
 ##### <a name="2.4.5.1">2.4.5.1</a> Score
 
 ###### <a name="2.4.5.1.s1"></a>Description
-An optional property that represents the outcome of a graded Activity achieved by an Agent.
+
+一个可选属性，表示代理完成的分级活动的结果。
 
 ###### <a name="2.4.5.1.s2"></a>Details
 
-The table below defines the Score Object. 
+下表定义了分数对象。
 
 <table border ="1">
 	<tr><th>Property</th><th>Type</th><th>Description</th><th>Required</th></tr>
@@ -1345,10 +1267,7 @@ The table below defines the Score Object.
 	</tr>
 </table>
 
-The properties of the Score Object are based on the corresponding properties of `cmi.score` as defined in SCORM 2004 
-4th Edition. The "scaled" and "raw" properties do not necessarily relate directly as scaling and normalization can
-be applied differently by Learning Record Providers within different Communities of Practice. Scaling and normalization 
-are outside the scope of this specification.
+Score对象的属性基于SCORM 2004第4版中定义的`cmi.score`的相应属性。 “缩放”和“原始”属性不一定直接相关，因为学习记录提供者可以在不同的实践社区内以不同方式应用缩放和规范化。缩放和规范化不在本规范的范围内。
 
 ###### <a name="2.4.5.1.s3"></a>Requirements
 
@@ -1361,16 +1280,14 @@ using an extension (preferably from an established Community of Practice) instea
 #### <a name="2.4.6">2.4.6</a> Context
 
 ###### <a name="2.4.6.s1"></a>Description
-An optional property that provides a place to add contextual information to a Statement. All "context" properties are optional.
+一个可选属性，提供了将语境信息添加到语句的位置。所有“上下文”属性都是可选的。
 
 ###### <a name="2.4.6.s2"></a>Rationale
-The "context" property provides a place to add some contextual information to a Statement. It can store information such 
-as the instructor for an experience, if this experience happened as part of a team-based Activity, or how an experience fits 
-into some broader activity.
+“上下文”属性提供了一个地方来添加一些上下文信息到一个陈述。如果这种体验是作为基于团队的活动的一部分发生的，或者某种体验适合某些更广泛的活动，它可以存储信息，如指导者获得体验。
 
 ###### <a name="2.4.6.s3"></a>Details
 
-The following table contains the properties of the Context Object.
+下表包含上下文对象的属性。
 
 <table border="1">
 <tr><th>Property</th><th>Type</th><th>Description</th><th>Required</th></tr>
@@ -1454,14 +1371,9 @@ so that it is available (e.g. for interpreting and displaying data).
 
 ###### <a name="2.4.6.1.s1"></a>Rationale/Details
 
-When an LRS is an integral part of an LMS, the LMS likely supports the concept of registration. 
-The Experience API applies the concept of registration more broadly. A registration could be 
-considered to be an attempt, a session, or could span multiple Activities. There is no expectation that 
-completing an Activity ends a registration. Nor is a registration necessarily confined to a single Agent.
+当LRS是LMS的组成部分时，LMS可能支持注册的概念。体验API更广泛地应用了注册的概念。注册可以被认为是一次尝试，一次会话或者可以跨越多个活动。没有期望完成活动结束注册。注册也不一定局限于单一代理商。
 
-The Registration is also used when storing documents within the State Resource, e.g. for 
-bookmarking. Normally the same registration is used for requests to both the Statement and 
-State Resources relating to the same learning experience so that all data recorded for the experience is consistent. 
+当在状态资源中存储文件时也使用登记，例如为书签。正常情况下，同一注册用于申请与陈述和状态资源有关的相同学习经历，以便为经验记录的所有数据保持一致。
 
 <a name="contextActivities"></a>
 
@@ -1469,16 +1381,15 @@ State Resources relating to the same learning experience so that all data record
 
 ###### <a name="2.4.6.2.s1"></a>Description
 
-A map of the types of learning activity context that this Statement is related to.
+本声明涉及的学习活动环境类型的地图。
 
 ###### <a name="2.4.6.2.s2"></a>Rationale
 
-Many Statements do not just involve one (Object) Activity that is the focus, but relate to other contextually relevant 
-Activities. The "contextActivities" property allow for these related Activities to be represented in a structured manner.
+许多报表不仅涉及一个（对象）活动，而是关注其他与上下文相关的活动。 “contextActivities”属性允许以结构化方式表示这些相关活动。
 
 ###### <a name="2.4.6.2.s3"></a>Details
 
-There are four valid context types. All, any or none of these MAY be used in a given Statement:
+有四种有效的上下文类型。在给定的声明中可以使用所有这些或任何一个或全部：
 
 * <a name="2.4.6.2.s3.b1"></a>__Parent__: an Activity with a direct relation to the Activity which is the Object of the Statement. 
 In almost all cases there is only one sensible parent or none, not multiple. For example: a Statement about a quiz question
@@ -1497,12 +1408,9 @@ category is the cmi5 profile.
 studies a textbook for a biology exam. The Statement's Activity refers to the textbook, and the exam is a contextActivity 
 of type `other`.
 
-Single Activity Objects are allowed as values so that 0.95 Statements will be compatible with 1.0.0.
+单个活动对象被允许作为值，因此0.95个语句将与1.0.0兼容。.
 
-__Note:__ The values in this section are not for expressing all the relationships the Statement Object has. Instead, they 
-are for expressing relationships appropriate for the specific Statement (though the nature of the Object will often be 
-important in determining that). For instance, it is appropriate in a Statement about a test to include the course the test 
-is part of as a "parent", but not to include every possible degree program the course could be part of in the grouping value.
+__注意：__ 本节中的值不代表Statement对象具有的所有关系。相反，它们用于表达适合于特定陈述的关系（尽管对象的性质通常在确定该关系时很重要）。例如，在关于测试的陈述中适当地包括作为“父母”的睾丸部分的课程，但不包括该课程可能成为分组价值的一部分的每个可能的学位课程。
 
 ###### <a name="2.4.6.2.s4"></a>Requirements
 * <a name="2.4.6.2.s4.b1"></a>Every key in the contextActivities Object MUST be one of parent, grouping, category, or other.
@@ -1514,13 +1422,7 @@ instead of a single Activity Object.
 
 ###### <a name="2.4.6.2.s5"></a>Example
 
-Consider the following hierarchical structure: "Questions 1 to 6"
-are part of "Test 1" which in turn belongs to the course "Algebra 1". 
-The six questions are registered as part of the test by declaring
-"Test 1" as their parent. Also they are grouped with other Statements
-about "Algebra 1" to fully mirror the hierarchy. This is particularly
-useful when the Object of the Statement is an Agent, not an Activity.
-"Andrew mentored Ben with context Algebra I".
+考虑以下等级结构：“问题1至6”是“测试1”的一部分，而“测试1”又属于“代数1”课程。通过宣布“测试1”作为他们的父母，这六个问题被注册为测试的一部分。此外，它们与其他有关“代数1”的陈述分组以完全反映层次结构。当陈述的对象是一个代理而不是一个活动时，这是特别有用的。“安德鲁用上下文代数I指导了本。”
 
 ```
 {
@@ -1551,16 +1453,11 @@ The "timestamp" property is of type [Timestamp](#timestamps). It is formatted ac
 corresponds to the time of when the events described within this Statement occurred. If it is not included in the Statement 
 when it is submitted to the LRS, the LRS populates it with the same value it would use with [Stored](#stored).
 
-The "timestamp property" in a Statement can differ from the ["stored" property](#stored) (the time at which the Statement is 
-stored). Namely, there can be delays between the occurrence of the experience and the reception of the corresponding 
-Statement by the LRS. 
+“timestamp”属性的类型是[时间戳](#timestamps)。它根据ISO 8601的正常格式进行格式化，并对应于本声明中所述事件发生的时间。如果它在提交给LRS时未包含在声明中，则LRS将使用与[存储](#stored)使用的值相同的值填充它。
 
-Where the experience occurs over a period of time, the "timestamp" property can represent the start, end or any point of time 
-during the experience. It is expected that Communities of Practice will define an appropriate point to record the 
-timestamp for different experiences. For example, when recording the experience of eating at a restaurant, it might 
-be most appropriate to record the timestamp of the start of the experience; when recording the experience of 
-completing a qualification, it might be most appropriate to record the timestamp of the end of the experience.
-These examples are for illustrative purposes only and are not meant to be prescriptive.
+Statement中的“timestamp property”可以与 [“stored” 属性](#stored)（存储Statement的时间）不同。也就是说，经验的发生和LRS接受相应的陈述之间可能会有延迟。
+
+经历一段时间后，“时间戳”属性可以表示体验期间的开始，结束或任何时间点。预计“实践社区”将定义一个适当的点来记录不同体验的时间戳。例如，当记录在餐厅吃饭的经历时，记录经验开始的时间戳可能是最合适的;当记录完成资格的经历时，记录经历结束的时间戳可能是最合适的。这些例子仅用于说明的目的，并不意味着是规定性的。
 
 ###### <a name="2.4.7.s3"></a>Requirements
 
@@ -1580,8 +1477,7 @@ issues due to clock errors.
 
 ###### <a name="2.4.8.s1"></a>Description
 
-The time at which a Statement is stored by the LRS. This can be any time between when the LRS receives the Statement and 
-when it is written to storage. 
+声明由LRS存储的时间。这可以是LRS收到声明和写入存储之间的任何时间。
 
 ###### <a name="2.4.8.s2"></a>Details
 
@@ -1628,13 +1524,14 @@ This is a workflow for use of OAuth. 2-legged and 3-legged OAuth are both suppor
 
 ###### <a name="2.4.9.s6"></a>Details
 
-This workflow assumes a Statement is stored using a validated OAuth connection and the LRS 
-creates or modifies the authority property of the Statement.
+此工作流程假定使用经过验证的OAuth连接存储Statement，并且LRS创建或修改Statement的Authority特性。
 
 In a 3-legged OAuth workflow, authentication involves both an OAuth consumer and a user of the 
 OAuth service provider. For instance, requests made by an authorized Twitter plug-in on their 
 Facebook account will include credentials that are specific not only to Twitter as a Client application, 
 or them as a user, but the unique combination of both.
+
+在 3-legged OAuth工作流中，身份验证涉及OAuth使用者和OAuth服务提供者的用户。例如，由他们的Facebook帐户上的授权Twitter插件发出的请求将包括不仅针对Twitter作为客户端应用程序或他们作为用户的凭证，而且还包括两者的唯一组合。
 
 ###### <a name="2.4.9.s7"></a>Requirements
 
