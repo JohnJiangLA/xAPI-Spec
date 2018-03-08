@@ -104,34 +104,24 @@
 <a name="partthree"></a>
 # Part Three: Data Processing, Validation, and Security 
 
-This third part details the more technical side of the Experience API, dealing with how Statements are transferred between 
-Learning Record Provider and LRS. A number of libraries are available for a range of technologies (including JavaScript) 
-which handle this part of the specification. It therefore might not be necessary for Learning Record Providers to fully 
-understand every detail of this part of the specification.
+第三部分详细介绍Experience API的技术方面，涉及如何在学习记录提供者和LRS之间转换语句。一些库可用于处理这部分规范的各种技术（包括JavaScript）。因此，学习记录提供者可能没有必要充分理解这部分规范的每个细节。
 
 <a name="requests"></a>
 
 ## <a name="1.0">1.0</a> Requests
 
-xAPI tracking is done via HTTP Requests from the Learning Record Provider (client) to the LRS (server). This 
-specification offers guidance in some aspects of this communication.  Where no guidance is offered, it is 
-recommended that those implementing xAPI use current industry best practices.
+xAPI跟踪是通过从学习记录提供者（客户端）到LRS（服务器）的HTTP请求完成的。本规范为本通信的某些方面提供了指导。如果没有提供指导，建议实施xAPI的人员使用当前的行业最佳实践。
 
 <a name="httphead"></a>
 
 ### <a name="1.1">1.1</a> HEAD Request Implementation
 
 ###### <a name="1.1.s1"></a>Description
-The behavior of the LRS in response to PUT, POST, GET and DELETE requests is outlined in [Resources](#resources) below. 
-All resources that support GET requests also support HEAD.
-The LRS will respond to HEAD requests by returning the meta information only, using the HTTP headers, and 
-not the actual document.  
+LRS响应PUT，POST，GET和DELETE请求的行为在下面的[资源](#resources) 中概述。所有支持GET请求的资源也都支持HEAD。LRS将通过仅使用HTTP头返回元信息来响应HEAD请求，而不是实际的文档。
 
 ###### <a name="1.1.s2"></a>Rationale
 
-Clients accessing the LRS might need to check if a particular Statement exists, or determine
-the modification date of documents such as those in State, Activity Profile, or Agent Profile Resources. Particularly
-for large documents, it is more efficient not to retrieve the entire document just to check its modification date.
+访问LRS的客户可能需要检查特定的陈述是否存在，或者确定文件的修改日期，例如State，Activity Profile或Agent Profile Resources中的文档。特别是对于大型文档，不检索整个文档只是为了检查其修改日期更有效。
 
 ###### <a name="1.1.s3"></a>LRS Requirements
 * <a name="1.1.s3.b1"></a>The LRS MUST respond to any HTTP HEAD request as it would have responded to an otherwise
@@ -144,10 +134,7 @@ identical HTTP GET request except:
 ### <a name="1.2">1.2</a> Headers
 
 ##### <a name="1.2.s1"></a>Header Parameters
-Some header parameters used within xAPI data transfer are 
-[standard HTTP headers](http://en.wikipedia.org/wiki/List_of_HTTP_header_fields). Others are specific to this
- specification. The following request headers are expected to be used by the Learning Record Providers in some or all 
- of the types of request and situations described in this specification:
+在xAPI数据传输中使用的某些标头参数是[标准HTTP标头](http://en.wikipedia.org/wiki/List_of_HTTP_header_fields)。其他则针对该规范。预计学习记录提供者将使用以下请求标题中的部分或全部类型的请求和本规范中描述的情况：
 
 * <a name="1.2.s1.b1"></a>Accept
 * <a name="1.2.s1.b2"></a>Accept-Encoding
@@ -160,8 +147,7 @@ Some header parameters used within xAPI data transfer are
 * <a name="1.2.s1.b9"></a>If-None-Match
 * <a name="1.2.s1.b10"></a>X-Experience-API-Version 
 
-The following response headers are expected to be used by the LRS. Again, not all of these apply
-to every type of request and/or situations:
+预计LRS将使用以下响应标头。再次，并非所有这些适用于每种类型的请求和/或情况：
 
 * <a name="1.2.s1.b11"></a>Content-Type
 * <a name="1.2.s1.b12"></a>Content-Length
@@ -171,7 +157,7 @@ to every type of request and/or situations:
 * <a name="1.2.s1.b16"></a>X-Experience-API-Version
 * <a name="1.2.s1.b17"></a>X-Experience-API-Consistent-Through
 
-The lists above are not intended to be exhaustive. See requirements throughout this document for more details.
+以上列表并不打算详尽无遗。有关详细信息，请参阅本文档中的要求。
 
 <a name="alt-request-syntax"></a>
 
@@ -180,15 +166,11 @@ The lists above are not intended to be exhaustive. See requirements throughout t
 
 ###### <a name="1.3.s1"></a>Description
 
-One of the goals of the xAPI is to allow cross-domain tracking, and even though xAPI seeks to enable tracking from 
-applications other than browsers, browsers still need to be supported. For example, Internet Explorer 8 and 9 do not 
-implement Cross Origin Resource Sharing, but rather use their own Cross Domain Request API, which cannot use all of 
-the xAPI as described above due to only supporting "GET" and "POST", and not allowing HTTP headers to be set.  
+xAPI的目标之一是允许跨域跟踪，即使xAPI试图启用除浏览器以外的应用程序的跟踪，仍然需要支持浏览器。例如，Internet Explorer 8和9不实现跨源资源共享，而是使用自己的跨域请求API，由于仅支持“GET”和“POST”，因此不能使用上述所有的xAPI，而不支持允许设置HTTP标头。
 
 ###### <a name="1.3.s2"></a>Details/Requirements
 
-The following describes alternate syntax to use only when unable to use the usual syntax for specific calls due to the 
-restrictions mentioned above. This alternate syntax can also be used to GET Statements due to limits on query string length.  
+以下描述了仅在由于上述限制而无法使用特定呼叫的通常语法时才使用的备用语法。由于查询字符串长度的限制，此备用语法也可用于GET语句。
 
 See [Appendix C: Cross Domain Request Example](#Appendix3C) for an example. 
 
@@ -338,19 +320,13 @@ Object has a fileUrl, ignoring all requirements based on the "multipart/mixed" f
 * <a name="1.5.2.s4.b4"></a>A Learning Record Provider SHOULD use SHA-256, SHA-384, or SHA-512 to populate the "sha2" property.
 
 ###### <a name="1.5.2.s5"></a>File URL
-The File URL is intended to provide a location from which the Attachment can be received.
-There are, however, no requirements for the owner of the Attachment to make the 
-Attachment data available at the location indefinitely or to make the Attachment publically
-available without security restrictions. When determining Attachment hosting arrangements, 
-those creating Statements using the "fileUrl" property are encouraged to consider the needs of end recipient(s) 
-of the Statement, especially if the Attachment content is not included with the Statement.
+文件URL旨在提供可以从中接收附件的位置。但是，附件所有者没有要求无限期地在附件中提供附件数据，或者没有安全限制地使附件公开可用。在确定附件托管安排时，鼓励使用“fileUrl”属性创建声明的人考虑声明最终收件人的需求，特别是如果附件内容未包含在声明中。
 
 * <a name="1.5.2.s5.b1"></a>The Attachment data SHOULD be retrievable at the URL indicated by the fileUrl.
 * <a name="1.5.2.s5.b2"></a>The owner of the attachment MAY stop providing the attachment data at this IRL at any time. 
 * <a name="1.5.2.s5.b3"></a>Security restrictions MAY be applied to those attempting to access the Attachment data at this IRL. 
 
-The period of time an Attachment is made available for, and the security restrictions applied to
-hosted attachments, are out of scope of this specification. 
+附件可供使用的时间以及适用于托管附件的安全限制超出了本规范的范围。
 
 ###### <a name="1.5.2.s6"></a>Example
 
@@ -363,7 +339,7 @@ a binary type like "image/jpeg", no encoding would be done, the raw octets would
 * <a name="1.5.2.s6.b4"></a>Per RFC 2046, the boundary is `<CRLF>` followed by -- followed by the boundary string 
 declared in the header.
 
-__Note:__ Don't forget the ```<CRLF>```  when building or parsing these messages.
+**注意：**在创建或解析这些消息时不要忘了 ```<CRLF>``` 。
 
 Headers:
 
@@ -424,19 +400,17 @@ here is a simple attachment
 <a name="datatransfer"></a> <a name="resources"></a>
 ## <a name="2.0">2.0</a> Resources
 
-The LRS is interacted with via RESTful HTTP methods to the resources outlined in this section.
-The Statement Resource can be used by itself to track learning records. Other resources provide
-additional functionality. 
+LRS 通过 RESTful HTTP 方法与本节中概述的资源进行交互。语句资源可以用于跟踪学习记录。其他资源提供附加功能。
 
-An LRS will support all of the resources described in this section. It's also possible
-for a tool which is not an LRS to choose to follow the LRS requirements of one or 
-more of the resources and methods described in this section. For example a tool might
-implement POST Statements for the purposes of receiving incoming Statements forwarded by an LRS.
-Such a system is not considered to be an LRS or 'partial LRS'; it is simply not an LRS. 
+LRS将支持本节中描述的所有资源。对于不是LRS的工具，也可以选择遵循本节所述的一种或多种资源和方法的LRS要求。例如，为了接收由LRS转发的传入语句，工具可能实现POST语句。这样一个系统不被认为是LRS或“部分LRS”。它根本不是一个LRS。
 
 __Note:__ In all of the example endpoints where xAPI resources are located given in the specification, `http://example.com/xAPI/` 
 is the example base endpoint of the LRS. All other IRI syntax after this represents the particular resource used. 
 A full list of the endpoints is included in [Appendix B: Table of All Resources](#Appendix3B).
+**注意：**在规范中给出xAPI资源所在的所有示例端点中，http：// example.com / xAPI /
+
+在规范中给出xAPI资源所在的所有示例端点中，http：// example.com / xAPI /
+是LRS的示例基本端点。之后的所有其他IRI语法代表所使用的特定资源。 [附录B：所有资源表](#Appendix3B)包含了完整的端点列表。
 
 ###### <a name="2.0.s1"></a>Requirements
 
@@ -538,12 +512,9 @@ it SHOULD* reject the batch and return `400 Bad Request`.
 
 Example endpoint: `http://example.com/xAPI/statements`
 
-This method is called to fetch a single Statement or multiple Statements. If the statementId or voidedStatementId parameter 
-is specified a single Statement is returned.
+调用此方法来获取单个Statement或多个Statements。如果指定了statementId或voidedStatementId参数，则返回单个Statement。
 
-Otherwise returns: A [StatementResult](./xAPI-Data.md#retrieval) Object, a list of Statements in reverse chronological order based 
-on "stored" time, subject to permissions and maximum list length. If additional results are available, an IRL to 
-retrieve them will be included in the StatementResult Object.
+否则返回：A [StatementResult]（./ xAPI-Data.md＃retrieval）对象，一个基于“存储”时间的反向时间顺序的语句列表，取决于权限和最大列表长度。如果有其他结果可用，则用于检索它们的IRL将包含在StatementResult对象中。
 
 **Content:** None.
 
@@ -704,7 +675,7 @@ retrieve them will be included in the StatementResult Object.
 	</tr>
 </table>
 
-__Note:__ The values of Boolean parameters are represented as `true` or `false` as in JSON.
+**注意：**在 JSON 中，布尔类型参数的值应当表示为 `true` 或 `false`。
 ###### <a name="2.1.3.s2"></a>Requirements
 
 * <a name="2.1.3.s2.b1"></a>The LRS MUST reject with a `400 Bad Request` error any requests to this resource 
@@ -739,21 +710,13 @@ of the Statement.
 
 ###### <a name="2.1.3.s3"></a>Filter Conditions for StatementRefs
 
-This section outlines rules by which Statements targeting other Statements can sometimes be considered to 
-meet the filter conditions of a query even if they do not match the original query's filter parameters. 
-These rules **do not** apply when retrieving a single Statement using "statementId" or "voidedStatementId" query 
-parameters.
+本节概述了针对其他语句的语句有时会被视为符合查询的过滤条件的规则，即使它们与原始查询的过滤参数不匹配。当使用“statementId”或“voidedStatementId”查询参数检索单个Statement时，这些规则**不适用**。
 
-'Targeting Statements' means that one Statement (the targeting Statement) includes the Statement id of another
-Statement (the targeted Statement) as a Statement Reference as the Object of the Statement. 
+“定位语句”表示一个语句（定位语句）包含另一个语句（定位语句）的语句ID作为语句参考作为语句的对象。
 
-For filter parameters which are not time or sequence based (that is, other than "since", "until", or "limit"), 
-Statements which target another Statement (by using a StatementRef as the Object of the Statement) will meet the 
-filter condition if the targeted Statement meets the filter condition.
+对于不是基于时间或序列（即“since”，“until”或“limit”）以外的过滤器参数，以另一个语句为目标的语句（通过使用StatementRef作为语句的对象）将符合如果目标语句符合过滤条件，则为过滤条件。
 
-The time and sequence based parameters MUST still be applied to the Statement making the StatementRef in this manner. 
-This rule applies recursively, so that "Statement a" is a match when a targets b which targets c and the filter 
-conditions described above match for "Statement c".
+基于时间和序列的参数必须仍然以这种方式应用于Statement Statement的Statement。该规则递归地应用，以便当针对c和上述过滤条件的目标b匹配“语句c”时，“语句a”是匹配的。
 
 For example, consider the Statement 'Ben passed explosives training', and a follow up
 Statement: "Andrew confirmed <StatementRef to original Statement\>". The follow up
@@ -762,8 +725,9 @@ with an Actor filter of 'Ben' or an Activity filter of 'explosives training', bo
 Statements match and will be returned so long as they fall into the time or sequence
 being fetched.
 
-__Note:__ StatementRefs used as a value of the "Statement" property within Context do not affect how
-Statements are filtered.
+例如，考虑“Ben passed explosives training”声明和后续声明：“Andrew confirmed <StatementRef to Original Statement \>”。后续声明不会提及'Ben'或'explosives training'，但是当获得'Ben'的Actor过滤器或'explosives training'的活动过滤器时，两个语句匹配并且只要它们落下就会被返回进入被提取的时间或顺序。
+
+**注意：**在上下文中声明参考使用“Statement”性质的值不会影响声明的筛选。
 
 <a name="queryLangFiltering"></a>
 
@@ -789,12 +753,10 @@ which language entry to include, rather than to the resource (list of Statements
 <a name="voidedStatements"></a>
 
 ##### <a name="2.1.4">2.1.4</a> Voided Statements
-[Part Two](./xAPI-Data.md#voided) describes the process by which Statements can be voided. This section
-describes how voided Statements are handled by the LRS when queried. 
 
-Clients can identify the presence and Statement id of any voided Statements by the target of the voiding Statement. 
-Aside from debugging tools, many Learning Record Consumers will not want to display voiding Statements to their users 
-and will not display these as part of activity streams and other reports. 
+[第二部分](./xAPI-Data.md#voided)描述了可以使语句无效的过程。本节介绍查询时如何处理无效声明。
+
+客户可以根据无效声明的目标确定任何无效声明的存在和声明ID。除调试工具外，许多学习记录消费者不希望向用户显示无效声明，也不会将这些声明显示为活动流和其他报告的一部分。
 
 ###### <a name="2.1.4.s1"></a>Requirements
 
@@ -812,13 +774,10 @@ voiding Statement, which cannot be voided.
 ### <a name="2.2">2.2</a> Document Resources 
 
 ##### <a name="2.2.s1"></a>Description
-The Experience API provides a facility for Learning Record Providers to save arbitrary data in 
-the form of documents, perhaps related to an Activity, Agent, or combination of both.
+Experience API为学习记录提供者提供了一种工具，用于以文档形式保存任意数据，可能与活动，代理或两者的组合有关。
 
 ##### <a name="2.2.s2"></a>Details
-Note that the following table shows generic properties, not a JSON Object as many other tables 
-in this specification do. The id is stored in the IRL, "updated" is HTTP header information, and 
-"contents" is the HTTP document itself (as opposed to an Object).
+请注意，下表显示了泛型属性，而不是本规范中许多其他表的JSON对象。 id存储在IRL中，“updated”是HTTP头信息，而“contents”是HTTP文件本身（而不是Object）。
 <table>
 	<tr><th>Property</th><th>Type</th><th>Description</th></tr>
 	<tr id="2.2.s2.table1.row1"><td>id</td><td>String</td><td>Set by Learning Record Provider, unique within the scope 
@@ -827,8 +786,8 @@ in this specification do. The id is stored in the IRL, "updated" is HTTP header 
 	<tr id="2.2.s2.table1.row3"><td>contents</td><td>Arbitrary binary data</td><td>The contents of the document</td></tr>
 </table>
 
-The three Document Resources provide [document](./xAPI-Data.md#documents) storage.  The details of each resource are found in 
-the following sections, and the information in this section applies to all three resources.
+
+这三个文档资源提供了[文档](./xAPI-Data.md#documents)存储。每个资源的详细信息可在以下部分找到，本节中的信息适用于所有三种资源。
 
 ###### <a name="2.2.s3"></a>Details
 
@@ -877,30 +836,24 @@ the most recently modified document was last modified.
 
 ###### <a name="2.2.s7"></a>JSON Procedure with Requirements
 
-If a Learning Record Provider stores variables as JSON Objects in a document with content type `application/json`, 
-they can manipulate them as sets of variables using POST.
+如果学习记录提供程序将变量作为JSON对象存储在内容类型为“application / json”的文档中，则可以使用POST将它们作为变量组来操作。
 
-The following process walks through that process and the process requirements.  
-For example, a document contains: 
-
+以下流程遍历该流程和流程要求。例如，一个文件包含：
 ```
 {
 	"x" : "foo",
 	"y" : "bar"
 }
 ```  
-When an LRS receives a POST request with content type `application/json` for an existing document also of
-content type `application/json`, it MUST merge the posted document with the existing document. 
-In this context, merge is defined as:
+当一个LRS接收到一个内容类型为 `application/json` 的 POST 请求时，它也是一个内容类型为 `application/json` 的现有文档，它必须合并该已发布文档和现有文档。在这种情况下，合并定义为：
 * <a name="2.2.s7.b1"></a>de-serialize the Objects represented by each document.
 * <a name="2.2.s7.b2"></a>for each property directly defined on the Object being posted, set the corresponding
 property on the existing Object equal to the value from the posted Object.    
 * <a name="2.2.s7.b3"></a>store any valid json serialization of the existing Object as the document referenced in the request.
 
-Note that only top-level properties are merged, even if a top-level property is an Object. The entire contents of each 
-original property are replaced with the entire contents of each new property.
+请注意，即使顶级属性是 Object，也只有顶级属性才会合并。每个原有属性的全部内容将被每个新属性的全部内容所取代。
 
-For example, this document is POSTed with the same id as the existing document above:
+例如，此文档的上传与上面现有文档的ID相同：
 
 ```
 {
@@ -908,7 +861,7 @@ For example, this document is POSTed with the same id as the existing document a
 	"z" : "faz"
 }
 ```  
-the resulting document stored in the LRS is:
+存储在LRS中的结果文档是：
 ```
 {
 	"x" : "bash",
@@ -935,22 +888,17 @@ the whole document as described below.
 
 ##### <a name="2.3.s1"></a>Description
 
-Generally, this is a scratch area for Learning Record Providers that do not have their own internal storage, 
-or need to persist state across devices. 
+通常，这是学习记录提供程序的暂存区域，它们没有自己的内部存储器，或者需要跨设备保持状态。
 
 ##### <a name="2.3.s2"></a>Details
 
-The semantics of the call are driven by the "stateId" parameter. If it is included, the GET and DELETE methods will 
-act upon a single defined state document identified by "stateId". Otherwise, GET will return the available ids, 
-and DELETE will delete all state in the context given through the other parameters. This resource has
-[Concurrency](#concurrency) controls associated with it.
+调用的语义由“stateId”参数驱动。如果包含它，则GET和DELETE方法将对由 “stateId” 标识的单个定义的状态文档起作用。否则，GET将返回可用的 id，DELETE 将删除通过其他参数给定的上下文中的所有状态。该资源具有与其关联的[并发](#concurrency) 控件。
 
 ###### <a name="2.3.s3"></a>Single Document (PUT | POST | GET | DELETE)
 
 Example endpoint: http://example.com/xAPI/activities/state
 
-Stores, changes, fetches, or deletes the document specified by the given "stateId" that 
-exists in the context of the specified Activity, Agent, and registration (if specified).  
+存储，更改，提取或删除指定活动，代理和注册（如果指定）上下文中存在的给定“stateId”指定的文档。
 
 **Content (PUT | POST):** The document to be stored or updated.  
 **Content (GET | DELETE):** None.  
@@ -989,9 +937,7 @@ exists in the context of the specified Activity, Agent, and registration (if spe
 
 Example endpoint: http://example.com/xAPI/activities/state
 
-Fetches State ids of all state data for this context (Activity + Agent \[ + registration if specified\]). 
-If "since" parameter is specified, this is limited to entries that have been stored or updated since the specified 
-timestamp (exclusive). 
+获取此上下文的所有状态数据的状态ID（Activity + Agent \ [+注册，如果指定了\]）。如果指定了“since”参数，则此参数限于自指定时间戳（独占）以来已存储或更新的条目。
 
 **Content:** None.
 
@@ -1031,6 +977,8 @@ Example endpoint: http://example.com/xAPI/activities/state
 
 Deletes all state data for this context (Activity + Agent \[+ registration if specified\]).  
 
+删除此上下文的所有状态数据（Activity + Agent \[+ registration 如果注册了\]）。
+
 **Content:** None.
 
 **Returns**: `204 No Content`  
@@ -1060,8 +1008,7 @@ Deletes all state data for this context (Activity + Agent \[+ registration if sp
 
 ### <a name="2.4">2.4</a> Agents Resource
 
-The Agents Resource provides a method to retrieve a special Object with combined information about an Agent derived from 
-an outside service, such as a directory service. This resource has [Concurrency](#concurrency) controls associated with it.
+代理资源提供了一种方法来检索具有关于从外部服务（例如目录服务）派生的代理的组合信息的特殊对象。该资源具有与其关联的[并发](#concurrency) 控件。
 
 ###### <a name="2.4.s1"></a>Combined Information GET
 
@@ -1069,14 +1016,9 @@ an outside service, such as a directory service. This resource has [Concurrency]
 
 Example endpoint: http://example.com/xAPI/agents
 
-Return a special, Person Object for a specified Agent. The Person Object is very similar to an Agent Object, 
-but instead of each attribute having a single value, each attribute has an array value, and it is legal to 
-include multiple identifying properties. This is different from the FOAF concept of person, person is being 
-used here to indicate a person-centric view of the LRS Agent data, but Agents just refer to one 
-persona (a person in one context).  
+为特定的代理返回一个特殊的Person对象。 Person对象与Agent对象非常相似，但是每个属性都有一个数值，而不是每个属性都有一个值，并且包含多个标识属性是合法的。这与FOAF人的概念不同，人们在这里用来表示以LBC代理人数据为中心的人的观点，但代理人只是指一个角色（一个人在一个上下文中）。
 
-The "agent" parameter is a normal Agent Object with a single identifier and no arrays. 
-It is not a Person Object, nor is it a Group. 
+“agent”参数是具有单个标识符且不含数组的普通代理对象。它不是一个人物，也不是一个群体。
 
 **Content:** None.
 
@@ -1104,6 +1046,8 @@ include the information associated with the requested Agent.
 __Note:__ This means that if a request is made for an Agent which the LRS has no 
 prior knowledge of, it will still return a Person object containing the information 
 about the Agent it received in the request. 
+
+**注意：**这意味着如果请求的是LRS先前不知道的代理，它将返回一个Person对象，其中包含有关请求中收到的代理的信息。
 
 ###### <a name="2.4.s4"></a>Person Properties
 
@@ -1167,11 +1111,13 @@ property MUST occur only once.
 The Activities Resource provides a method to retrieve a full description of an Activity from the LRS. 
 This resource has [Concurrency](#concurrency) controls associated with it.
 
+活动资源提供了一种方法来从LRS中检索活动的完整描述。该资源具有与其关联的[并发](#concurrency) 控件。
+
 ###### <a name="2.5.s1"></a>Full Activity Object GET
 
 Example endpoint: http://example.com/xAPI/activities
 
-Loads the complete Activity Object specified.  
+加载指定的完整活动对象。
 
 **Content:** None.
 
@@ -1197,19 +1143,18 @@ still return an Activity Object when queried.
 
 ###### <a name="2.6.s1"></a>Description
 
-The Agent Profile Resource is much like the State Resource, allowing for arbitrary key / document pairs to be saved 
-which are related to an Agent. 
+
+代理配置文件资源非常类似于状态资源，允许保存与代理相关的任意密钥/文档对。
 
 ###### <a name="2.6.s2"></a>Details
 
-The semantics of the request are driven by the "profileId" parameter. If it is included, the GET method will act upon 
-a single defined document identified by "profileId". Otherwise, GET will return the available ids.  
+请求的语义由“profileId”参数驱动。如果包含，则GET方法将对“profileId”标识的单个已定义文档起作用。否则，GET将返回可用的ID。
 
 ###### <a name="2.6.s3"></a>Single Agent or Profile Document (PUT | POST | GET | DELETE)
 
 Example endpoint: http://example.com/xAPI/agents/profile
 
-Stores, changes, fetches, or deletes the specified Profile document in the context of the specified Agent.  
+在指定的代理上下文中存储，更改，提取或删除指定的Profile文档。
 
 **Content (PUT | POST):** The document to be stored or updated.  
 **Content (GET | DELETE):** None.  
@@ -1233,15 +1178,13 @@ Stores, changes, fetches, or deletes the specified Profile document in the conte
 	</tr>
 </table>
 
-__Note:__ The "agent" parameter is an Agent Object and not a Group. Learning Record Providers wishing to store data
-against an Identified Group can use the Identified Group's identifier within an Agent Object. 
+**注意：**“代理”参数是一个代理对象，而不是一个组。学习记录希望根据已识别组存储数据的提供者可以使用代理对象内的已识别组的标识符。
 
 ###### <a name="2.6.s4"></a>Multiple Document GET
 
 Example endpoint: http://example.com/xAPI/agents/profile
 
-Fetches Profile ids of all Profile documents for an Agent. If "since" parameter is specified, this is limited to entries 
-that have been stored or updated since the specified Timestamp (exclusive).  
+获取代理的所有 Profile 文件的 Profile ID。如果指定了“since”参数，则此参数限于自指定时间戳（独占）以来已存储或更新的条目。
 
 **Content:** None.
 
@@ -1270,20 +1213,17 @@ that have been stored or updated since the specified Timestamp (exclusive).
 
 ###### <a name="2.7.s1"></a>Description
 
-The Activity Profile Resource is much like the State Resource, allowing for arbitrary key / document pairs to be saved 
-which are related to an Activity. 
+活动配置文件资源非常类似于状态资源，允许保存与活动相关的任意密钥/文档对。
 
 ###### <a name="2.7.s2"></a>Details
 
-The semantics of the request are driven by the "profileId" parameter. If it is included, 
-the GET method will act upon a single defined document identified by "profileId". 
-Otherwise, GET will return the available ids.
+请求的语义由“profileId”参数驱动。如果包含，则GET方法将对“profileId”标识的单个已定义文档起作用。否则，GET将返回可用的ID。
 
 ###### <a name="2.7.s3"></a>Single Document (PUT | POST | GET | DELETE)
 
 Example endpoint: http://example.com/xAPI/activities/profile
 
-Stores, changes, fetches, or deletes the specified Profile document in the context of the specified Activity.  
+在指定的活动的上下文中存储，更改，提取或删除指定的配置文件文档。
 
 **Content (PUT | POST):** The document to be stored or updated.  
 **Content (GET | DELETE):** None.  
@@ -1310,8 +1250,7 @@ Stores, changes, fetches, or deletes the specified Profile document in the conte
 
 Example endpoint: http://example.com/xAPI/activities/profile
 
-Fetches Profile ids of all Profile documents for an Activity. If "since" parameter is specified, this is limited to 
-entries that have been stored or updated since the specified Timestamp (exclusive).  
+获取活动的所有配置文件的配置文件ID。如果指定了“since”参数，则此参数限于自指定时间戳（独占）以来已存储或更新的条目。
 
 **Content:** None.
 
@@ -1341,12 +1280,11 @@ entries that have been stored or updated since the specified Timestamp (exclusiv
 
 ###### <a name="2.8.s1"></a>Description
 
-Returns JSON Object containing information about this LRS, including the xAPI version supported.
+返回包含此LRS信息的JSON对象，包括支持的xAPI版本。
 
 ###### <a name="2.8.s2"></a>Rationale
 
-Primarily this resource exists to allow Clients that support multiple xAPI versions to decide which version to 
-use when communicating with the LRS. Extensions are included to allow other uses to emerge.
+此资源主要用于允许支持多个xAPI版本的客户端决定在与LRS进行通信时使用哪个版本。包含扩展以允许其他用途出现。
 
 ###### <a name="2.8.s3"></a>Details
 
@@ -1397,6 +1335,7 @@ The function of the LRS within the xAPI is to store and retrieve Statements. As 
 to perform these tasks, it is expected that it does them. Validation of Statements in the Experience API is focused 
 solely on syntax, not semantics. Enforcing the rules that ensure valid meaning among Verb definitions, Activity types, 
 and extensions is the responsibility of the Learning Record Provider sending the Statement. 
+LRS 中执行 xAPI 标准的函数是用来存储和检索声明的 。只要它有足够的信息来执行这些任务，就可以预期它们完成这些任务。 Experience API中的语句验证仅关注语法，而不是语义。学习记录提供者发送声明的责任是执行确保动词定义，活动类型和扩展之间有效含义的规则。
 
 ###### <a name="3.0.s2"></a>Requirements
 
@@ -1408,21 +1347,22 @@ and extensions is the responsibility of the Learning Record Provider sending the
 ### <a name="3.1">3.1</a> Concurrency
 
 ##### <a name="3.1.s1"></a>Description
-Concurrency control makes certain that a client does not PUT, POST or DELETE documents based on old
-data into an LRS.
+并发控制确保客户端不会将基于旧数据的PUT，POST或DELETE文档转换为LRS。
 
 ##### <a name="3.1.s2"></a>Details
 xAPI will use HTTP 1.1 entity tags ([ETags](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.19))
 to implement optimistic concurrency control in the portions of the API where PUT, POST or DELETE might
 overwrite or remove existing data, being:
 
+在 PUT，POST或 DELETE 可能会覆盖或删除现有数据的部分，xAPI 将使用 HTTP 1.1 实体标签（[ETags](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.19)）来实现API部分中的开放并发性的控件，这些部分如下所示：
+
 * <a name="3.1.s2.b1"></a>State Resource
 * <a name="3.1.s2.b2"></a>Agent Profile Resource 
 * <a name="3.1.s2.b3"></a>Activity Profile Resource
 
 ##### <a name="3.1.s3"></a>Client Requirements
-The State Resource will permit PUT, POST and DELETE requests without concurrency headers, since state conflicts
-are unlikely. The requirements below only apply to Agent Profile Resource and Activity Profile Resource.
+
+状态资源将允许没有并发头的PUT，POST和DELETE请求，因为状态冲突不太可能。下面的要求仅适用于代理配置文件资源和活动配置文件资源。
 
 * <a name="3.1.s3.b1"></a>A Client making a PUT request to either the Agent Profile Resource or Activity Profile 
 Resource MUST include the "[If-Match](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.24)" header or the 
@@ -1458,17 +1398,17 @@ if it contains an ETag, in order to detect modifications made after the Client l
 "[If-None-Match](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.26)" header as described in RFC2616, HTTP 1.1 if it 
 contains "*", in order to to detect when there is a resource present that the Client is not aware of.
 
-If the header precondition in either of the PUT request cases above fails, the LRS:
+如果上述两个 PUT 请求情况中的头部先决条件失败，则 LRS：
 
 * <a name="3.1.s4.b9"></a>MUST return HTTP status `412 Precondition Failed`.
 * <a name="3.1.s4.b10"></a>MUST NOT make a modification to the resource. 
 
-If the header precondition in any of the POST or DELETE request cases above fails, the LRS:
+如果上述任何POST或DELETE请求情况下的头部前置条件失败，则LRS：
 
 * <a name="3.1.s4.b11"></a>SHOULD* return HTTP status `412 Precondition Failed`.
 * <a name="3.1.s4.b12"></a>SHOULD* NOT make a modification to the resource. 
 
-If a PUT request is received without either header for a resource that already exists, the LRS:
+如果接收到的PUT请求中没有任何已存在的资源的标题，则LRS：
 
 * <a name="3.1.s4.b13"></a>MUST return HTTP status `409 Conflict`.
 * <a name="3.1.s4.b14"></a>MUST return a response explaining that the Learning Record Provider SHOULD
@@ -1482,43 +1422,21 @@ If a PUT request is received without either header for a resource that already e
 
 ##### <a name="3.2.s1"></a>Description
 
-This specification defines requirements, some of which are imposed on the LRS to accept or reject requests,
-return responses and perform other behaviors in certain conditions. In cases where an LRS is required 
-to reject a request, the appropriate error code is listed as part of the requirement. 
+本规范定义了需求，其中一些要求强制LRS接受或拒绝请求，返回响应并在特定条件下执行其他行为。在需要LRS拒绝请求的情况下，相应的错误代码被列为需求的一部分。
 
-None of these requirements contradict the idea that the LRS is also allowed to be configurable to reject requests 
-and respond or behave differently on the basis of conditions that are out of scope this specification. 
+这些要求都不符合这样的想法，即LRS也可以配置为拒绝请求，并根据超出本规范范围的条件作出不同的响应或行为。
 
-One of these conditions is permission. For example, the LRS might assign permissions to a particular set of 
-credentials such that those credentials can only issue Statements relating to a particular agent. It could then 
-reject any statements using those credentials not relating to that agent. The permissions that can be assigned 
-by an LRS are out of scope of this specification, aside from the list of recommended OAuth Authorization scope 
-values in section [4.2](#oauthscope). 
+其中一个条件是许可。例如，LRS可能会将权限分配给一组特定的凭证，以便这些凭证只能发出与特定代理有关的语句。然后，它可以拒绝使用与该代理无关的证书的任何陈述。除了部分[4.2](#oauthscope)中推荐的OAuth授权范围值列表外，LRS可分配的权限超出了本规范的范围。
 
-Permissions can also affect the response returned by an LRS to GET requests. For example, 
-a set of credentials might have permission only to view Statements about a particular Actor, in which case
-the LRS will filter any returned Statements to exclude any Statements not relating to that Actor. See 
-[GET Statements](#stmtresget) for details. 
+权限还可以影响LRS向GET请求返回的响应。例如，一组证书可能只有权限查看有关特定Actor的语句，在这种情况下，LRS将过滤任何返回的语句以排除与该Actor无关的任何语句。有关详细信息，请参见[GET语句](#stmtresget) 。
 
-In cases explicitly allowed by this specification, the credentials used can also affect the LRS behavior in 
-handling a request, for example the LRS will normally overwrite the "authority" property of a Statement, but can 
-sometimes accept a submitted authority if it has a strong trust relationship associated with the credentials 
-used to submit the Statement. See [Authority](./xAPI-Data.md#authority) for details. 
+在本规范明确允许的情况下，使用的凭证也会影响LRS在处理请求时的行为，例如，LRS通常会覆盖Statement的“authority”属性，但有时可以接受提交的授权信任关系与用于提交语句的凭证相关联。有关详细信息，请参见[权限](./xAPI-Data.md#authority) 。
 
-Permissions set by an LRS could cause a technically conformant LRS to fail conformance testing. 
-This could occur where requests made by the testing software are rejected on the basis of permissions. For this reason
-the LRS needs to be configurable, or credentials used for testing need to have sufficient permissions granted,
-such that permission restrictions do not affect the result of conformance testing. 
+由LRS设置的权限可能会导致技术上符合LRS的一致性测试失败。这可能会在测试软件提出的请求被拒绝的情况下发生。为此，LRS需要可配置，或者用于测试的凭证需要授予足够的权限，以便权限限制不会影响一致性测试的结果。
 
-Another condition is where the request sent is beyond the size limits set by the LRS. It would be unreasonable
-to expect the LRS to always accept requests of any size. The LRS can choose any size limit it sees fit, but
-needs to be configurable so as not to apply size limits during conformance testing. Of course, some size limits
-will still exist during conformance testing due to limitations of hardware, etc. but it is expected that these limits
-are sufficiently high so as not to affect the running of tests. 
+另一个条件是发送的请求超出了LRS设置的大小限制。期待LRS总是接受任何规模的请求是不合理的。 LRS可以选择它认为合适的任何尺寸限制，但需要进行配置，以便在一致性测试期间不应用尺寸限制。当然，由于硬件限制等原因，一致性测试期间仍会存在一些尺寸限制，但预计这些限制足够高以免影响测试运行。
 
-The LRS can also reject requests or revoke credentials in case of suspected malicious intent, for example
-an unexpected large number of requests made in a short period of time. It is expected that that limits 
-will be sufficiently high such that the rate of requests made during conformance testing will not trigger any rate limits.
+LRS 还可以拒绝请求或在怀疑存在恶意的情况下撤销证书，例如在短时间内发生意外的大量请求。预计这一限制将足够高，以便在一致性测试期间提出的请求速率不会触发任何速率限制。
 
 ##### <a name="3.2.s2"></a>Details
 The list below offers some general guidance on HTTP error codes that could be returned from various methods in the API. 
@@ -1616,21 +1534,13 @@ size (see above).
 
 ###### <a name="3.3.s1"></a>Rationale
 
-Future revisions of the specification might introduce changes such as properties added to Statements. Using Semantic 
-Versioning will allow Clients and LRSs to remain interoperable as the specification changes.
+规范的未来修订可能会引入更改，例如添加到语句中的属性。使用语义版本将允许客户和LRS在规格更改时保持互操作性。
 
 ###### <a name="3.3.s2"></a>Details
 
-Starting with version 1.0.0, xAPI will be versioned according to [Semantic Versioning 1.0.0](http://semver.org/spec/v1.0.0.html).  
-Every request from a Client and every response from the LRS includes an HTTP header with the name `X-Experience-API-Version` 
-and the version as the value. For example, ``X-Experience-API-Version : 1.0.3`` for version 1.0.3; 
-see the [Revision History](./xAPI-About.md#Appendix1A) for the current version of this specification. 
+从版本1.0.0开始，xAPI将根据[语义版本1.0.0](http://semver.org/spec/v1.0.0.html)进行版本控制。来自客户端的每个请求和来自LRS的每个响应都包含一个名为“X-Experience-API-Version”的HTTP标头，并且版本为值。例如，版本1.0.3的 `X-Experience-API-Version` ;请参阅本规范当前版本的[修订历史记录](./xAPI-About.md#Appendix1A) 。
 
-__Note:__ For patch versions of the specification later than 1.0.0, the "X-Experience-API-Version" header will not match the 
-[statement version property](./xAPI-Data.md#version) which is always `1.0.0` for all 1.0.x versions of the spec. The
-"X-Experience-API-Version" header enables the LRS and Client to determine the exact patch version of the specification being 
-followed. While no communication incompatibility should arise among 1.0.x versions, there are sometimes clarifications 
-of previously intended behavior.
+**注意：**对于1.0.0之后的规范补丁版本，“X-Experience-API-Version”头文件与[statement version属性](./xAPI-Data.md#version) 1.0.0版本适用于该规范的所有1.0.x版本。 “X-Experience-API-Version”标题使LRS和客户端能够确定所遵循规范的确切补丁版本。尽管1.0.x版本之间不会出现通信不兼容问题，但有时还会澄清以前的预期行为。
 
 ###### <a name="3.3.s3"></a>LRS Requirements
 
@@ -1671,21 +1581,17 @@ In order to balance interoperability and the varying security requirements of di
 authentication options are defined.
 
 ###### <a name="4.0.s2"></a>Details
-The following authentication methods are defined within the specification. Any given LRS will implement at least one 
-of these methods and might implement additional methods not defined within this specification. 
+
+规范中定义了以下认证方法。任何给定的LRS将至少实现其中一种方法，并可能实现本规范中未定义的其他方法。
 
 * <a name="4.0.s2.b1"></a>[OAuth 1.0 (RFC 5849)](http://tools.ietf.org/html/rfc5849), with signature methods of 
 "HMAC-SHA1", "RSA-SHA1", and "PLAINTEXT"
 * <a name="4.0.s2.b2"></a>[HTTP Basic Authentication](http://tools.ietf.org/html/rfc7235)
 * <a name="4.0.s2.b3"></a>Common Access Cards
 
-While Common Access Cards are defined as an authentication method within this specification, the implementation details of 
-this authentication method are not defined. The xAPI Working Group encourages LRS developers implementing Common Access Cards 
-as an authentication method to collaborate in defining the details of this authentication method in a future version of this 
-specification. 
+虽然通用访问卡在本规范中定义为身份验证方法，但未定义此身份验证方法的实现细节。 xAPI工作组鼓励实施通用访问卡的LRS开发者作为一种认证方法，在本规范的未来版本中协作定义此认证方法的细节。
 
-No further details are provided in this specification to describe HTTP Basic Authentication as this authentication method
-is clearly and completely defined in [RFC 7235](http://tools.ietf.org/html/rfc7235). 
+在本规范中没有提供进一步的细节来描述HTTP基本认证，因为这种认证方法在[RFC 7235](http://tools.ietf.org/html/rfc7235)中有明确和完整的定义。
 
 ###### <a name="4.0.s3"></a>Requirements
 
@@ -1699,17 +1605,13 @@ determining what operations might be performed based on the credentials used.
 
 ### <a name="4.1">4.1</a> OAuth 1.0 Authentication Scenarios and Methods
 
-The matrix and requirements below describe the possible authentication scenarios used within OAuth and recommends the 
-authentication workflow to be used in these scenarios. The process described for each scenario is not intended 
-to be comprehensive, but rather outline variations to the standard OAuth workflow. 
+下面的矩阵和要求描述了OAuth中使用的可能的身份验证方案，并建议在这些方案中使用身份验证工作流程。针对每个场景描述的过程并不是全面的，而是标准OAuth工作流程的变化。
 
-The requirements in this section only apply if the LRS supports OAuth 1.0.
+本节中的要求仅适用于LRS支持OAuth 1.0的情况。
 
-A **registered application** is an application that will authenticate to the LRS as an OAuth consumer that has been 
-registered with the LRS.
+一个 **已注册的应用程序** 是一个已向 LRS 并被 LRS 当做一个 OAuth 用户授权。
 
-A **known user** is a user account on the LRS, or on a system which the LRS trusts to define users.
-
+**已知用户**是 LRS 上的用户帐户，或LRS信任的用于定义用户的系统上的用户帐户。
 
 <table border="1">
 <tr><th></th><th>Known user</th><th>User unknown</th></tr>
@@ -1772,15 +1674,12 @@ as the Agent representing the registered application.
 ###### <a name="4.1.s5"></a>Application Not Registered + Known User Process and Requirements
 
 **Process:**
-The Learning Record Provider uses a consumer secret consisting of an empty string to call the Temporary Credential 
-Request endpoint specifying the "consumer_name" and other usual parameters.  The "consumer_name" contains a string 
-representing the application requesting access. 
 
-The Learning Record Provider then sends the user's browser to the Resource Owner Authorization using the temporary 
-credentials obtained from the LRS. The Resource Owner Authorization presents a page displaying the "consumer_name" 
-plus a warning that the identity of the application requesting authorization cannot be verified.
+学习记录提供程序使用包含空字符串的使用者密钥来调用临时凭证请求端点，以指定“consumer_name”和其他常用参数。 “consumer_name”包含表示请求访问的应用程序的字符串。
 
-Otherwise the process follows the standard OAuth workflow. 
+学习记录提供者然后使用从LRS获得的临时证书将用户的浏览器发送到资源所有者授权。资源所有者授权会显示一个页面，显示“consumer_name”以及警告：无法验证请求授权的应用程序的身份。
+
+否则，该过程将遵循标准的OAuth工作流程。
 
 **Requirements:**
 * <a name="4.1.s5.b1"></a>If this form of authentication is used to record Statements, the LRS MUST record an authority 
@@ -1810,19 +1709,15 @@ HTTP Basic Authentication challenge.
 ### <a name="4.2">4.2</a> OAuth 1.0 Authorization Scope
 
 ##### <a name="4.2.s1"></a>Description
-These are recommendations for scopes designed to enable an LRS and an application communicating using the xAPI to 
-negotiate a level of access which accomplishes what the application needs while minimizing the potential for misuse. 
-The limitations of each scope are in addition to any security limitations placed on the user account associated 
-with the request.
+这些是范围建议，旨在使LRS和使用xAPI进行通信的应用程序能够协商访问级别，从而实现应用程序所需的内容，同时最大限度地减少滥用的可能性。每个范围的限制是对与请求关联的用户帐户上的任何安全限制的补充。
 
-Elements of this section draw on [OAuth 2.0](http://tools.ietf.org/html/rfc6749#section-3.3)
-despite this section describing requirements for LRS supporting [OAuth 1.0](http://tools.ietf.org/html/rfc5849). 
+尽管本节中描述的 LRS 要求支持 [OAuth 1.0](http://tools.ietf.org/html/rfc5849)，但是本节中的元素依赖 [OAuth 2.0](http://tools.ietf.org/html/rfc6749#section-3.3)。
 
-The requirements in this section only apply if the LRS supports OAuth 1.0.
+本节中的要求仅适用于LRS支持OAuth 1.0的情况。
 
 ##### <a name="4.2.s2"></a>Details
 
-The following table lists xAPI scope values:  
+下表列出了xAPI范围值：
 <table>
 	<tr><th>Scope</th><th>Permission</th></tr>
 	<tr id="4.2.s2.table1.row1"><td>statements/write</td><td>write any Statement</td></tr>
@@ -1886,9 +1781,7 @@ The following table lists xAPI scope values:
 </table>
 
 ##### <a name="4.2.s4"></a>Example
-The list of scopes determines the set of permissions that is being requested. For example, an instructor might grant 
-"statements/read" to an application (Client), but the LRS would still limit that tool to Statements that the instructor could 
-read if querying the LRS with their credentials directly (such as Statements relating to their students).
+范围列表确定正在请求的权限集。例如，教师可能会向应用程序（客户端）授予“语句/读取”权限，但是LRS仍然会将该工具限制为指导者可以直接使用其凭据查询LRS的语句（例如与学生相关的语句）。
 
 ##### <a name="4.2.s5"></a>Requirements
 
@@ -1906,18 +1799,11 @@ as query string or form parameters, not in the OAuth header.
 
 ## <a name="5.0">5.0</a> Security 
 
-Security beyond authentication (including the interpretation of OAuth authorization scopes) is beyond the current 
-scope of this document and left to the individual LRS provider as an implementation detail. Implementors are encouraged 
-to follow industry best practices, e.g., [The HTTPS-Only Standard](https://https.cio.gov) from the office of the White House CIO.
+超出身份验证的安全性（包括对OAuth授权范围的解释）超出了本文档的当前范围，并作为实现细节留给了单个LRS提供商。鼓励实施者遵循行业最佳实践，例如，来自白宫首席信息官办公室的[HTTPS专用标准](https://https.cio.gov)。
 
-It is possible that security concerns may arise in the implementation of this specification, and implementers might choose to break a 
-conformance requirement for the sake of security. In these cases, implementers are encouraged to consider both the security and 
-interoperability implications of their implementation decisions. In any case, the LRS will still need to be configurable such that it
-is able to pass conformance tests. 
+在实现本规范时可能会出现安全问题，为了安全起见，实施者可能会选择违反一致性要求。在这些情况下，鼓励实施者考虑其实施决策的安全性和互操作性影响。无论如何，LRS仍然需要可配置，以便它能够通过一致性测试。
 
-While other security concerns are beyond the scope of this specification, the xAPI Community remains dedicated to determining 
-security best practices. This effort has begun at [xAPIsec](https://github.com/xapisec/xapisec). 
-Participation is highly encouraged.
+虽然其他安全问题超出了本规范的范围，但xAPI社区仍然致力于确定最佳安全实践。这项工作已经开始于[xAPIsec](https://github.com/xapisec/xapisec)。非常鼓励参与。
 
 <a name="append3"></a>
 ## <a name="5.0.s1"></a>Appendices
@@ -1927,15 +1813,13 @@ Participation is highly encouraged.
 ### <a name="A">Appendix A</a>: Converting Statements to 1.0.0
 
 ###### <a name="A.s1"></a>Rationale
-This is a 1.0.0 specification, and as such implementers do not have to consider prior versions of the specification. 
-However, prior versions did see notable adoption. This data conversion is specified in order to preserve the data 
-tracked using earlier versions, and make it available to new implementers in a consistent manner.
+这是一个 1.0.0 规范，因此实现者不必考虑规范的先前版本。然而，之前的版本确实看到了明显的采用。此数据转换是为了保留使用早期版本跟踪的数据而指定的，并以一致的方式将其提供给新的实施人员。
 
 ###### <a name="A.s2"></a>Details
 
 ###### <a name="A.s3"></a>Conversion of Statements created based on version 0.9
 
-A 1.0.0 Client or other system converting a Statement created in 0.9 MUST follow the steps below:
+转换在0.9中创建的Statement的1.0.0客户端或其他系统必须遵循以下步骤：
 
 * <a name="A.s3.b1"></a>If the Statement has been voided or uses Verbs, Activity types, or properties not included in the
  0.9 specification, do not convert it.
@@ -1963,7 +1847,7 @@ property will still be updated if the Statement is sent to an LRS.
 
 ###### <a name="A.s4"></a>Conversion of Statements created based on version 0.95
 
-A 1.0.0 Client or other system converting a Statement created in 0.95 MUST follow the steps below:
+转换在0.95中创建的Statement的1.0.0客户端或其他系统必须遵循以下步骤：
 
 * <a name="A.s4.b1"></a>If the Statement is voided, do not convert it.
 * <a name="A.s4.b2"></a>Remove the "voided" property from the Statement, if present. Remember, if the value of the "voided" 
@@ -2170,6 +2054,8 @@ Converted to 1.0.0:
 [Alternate Request Syntax](#alt-request-syntax) outlines alternative syntax for use when the normal syntax cannot be used due 
 to browser or querystring length restrictions. This appendix provides an example of a PUT request to the Statements Resource 
 following this format. 
+
+[Alternate Request Syntax](#alt-request-syntax) 概述了由于浏览器或查询字符串长度限制而无法使用正常语法时使用的替代语法。本附录提供了按照这种格式向语句资源发出PUT请求的示例。
 
 Request using normal syntax:
 
